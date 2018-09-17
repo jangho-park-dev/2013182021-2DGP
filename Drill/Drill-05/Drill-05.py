@@ -162,23 +162,23 @@ def check8():
         y += 5
         delay(0.03)
 def check9():
-    x, y = 510, 92
+    x, y = 692, 518
     frame = 0
-    while x < 682:
+    while x > 682:
         clear_canvas()
         grass.draw(400, 30)
-        character.clip_draw(frame * 100, 100, 100, 100, x, y)
+        character.clip_draw(frame * 100, 0, 100, 100, x, y)
         update_canvas()
         frame = (frame + 1) % 8
-        x += 5
+        x -= 5
         delay(0.03)
-    while y < 336:
+    while y > 336:
         clear_canvas()
         grass.draw(400, 30)
-        character.clip_draw(frame * 100, 100, 100, 100, x, y)
+        character.clip_draw(frame * 100, 0, 100, 100, x, y)
         update_canvas()
         frame = (frame + 1) % 8
-        y += 5
+        y -= 5
         delay(0.03)
 def check10():
     x, y = 682, 336
@@ -200,16 +200,16 @@ def check10():
         y += 5
         delay(0.03)
 while True:
-    #check1()
+    check1()
     #check2()
     #check3()
     #check4()
     #check5()
     #check6()
     #check7()
-    #check8()
-    #check9()
+    check8()
+    check9()
     check10()
-    
+
 close_canvas()
 
