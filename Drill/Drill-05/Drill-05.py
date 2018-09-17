@@ -123,14 +123,33 @@ def check6():
         frame = (frame + 1) % 8
         y += 5
         delay(0.03)
+def check7():
+    x, y = 316, 225
+    frame = 0
+    while x < 510:
+        clear_canvas()
+        grass.draw(400, 30)
+        character.clip_draw(frame * 100, 100, 100, 100, x, y)
+        update_canvas()
+        frame = (frame + 1) % 8
+        x += 5
+        delay(0.03)
+    while y > 92:
+        clear_canvas()
+        grass.draw(400, 30)
+        character.clip_draw(frame * 100, 100, 100, 100, x, y)
+        update_canvas()
+        frame = (frame + 1) % 8
+        y -= 5
+        delay(0.03)
 while True:
     #check1()
     #check2()
     #check3()
     #check4()
     #check5()
-    check6()
-
+    #check6()
+    check7()
 
 close_canvas()
 
