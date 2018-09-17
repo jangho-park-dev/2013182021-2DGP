@@ -1,5 +1,5 @@
 from pico2d import *
-
+# drill-05 완성
 open_canvas()
 grass = load_image('KPU_GROUND_FULL.png')
 character = load_image('animation_sheet.png')
