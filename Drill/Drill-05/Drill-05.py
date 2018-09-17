@@ -47,12 +47,31 @@ def check2():
         frame = (frame + 1) % 8
         y -= 5
         delay(0.03)
-
+def check3():
+    x, y = 132, 243
+    frame = 0
+    while x < 535:
+        clear_canvas()
+        grass.draw(400, 30)
+        character.clip_draw(frame * 100, 100, 100, 100, x, y)
+        update_canvas()
+        frame = (frame + 1) % 8
+        x += 5
+        delay(0.03)
+    while y < 470:
+        clear_canvas()
+        grass.draw(400, 30)
+        character.clip_draw(frame * 100, 100, 100, 100, x, y)
+        update_canvas()
+        frame = (frame + 1) % 8
+        y += 5
+        delay(0.03)
 
 
 while True:
     #check1()
-    check2()
+    #check2()
+    check3()
 
 close_canvas()
 
