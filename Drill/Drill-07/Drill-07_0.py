@@ -8,6 +8,7 @@ character = load_image('animation_sheet.png')
 
 running = True
 frame = 0
+dir = 0
 
 def handle_events():
     global running
@@ -19,7 +20,7 @@ def handle_events():
             running = False
 
 n = 1
-size = 5
+size = 20
 points = [(random.randint(0, 1000), random.randint(0, 600))
           for i in range(size)]
 
@@ -29,9 +30,14 @@ x = (points[n-1])[0]
 y = (points[n-1])[1]
 
 while running:
+    if (points[n-1])[0] < (points[n])[0]:
+        dir = 1
+    if (points[n-1])[0] > (points[n])[0]:
+        dir = 0
+
     clear_canvas()
     grass.draw(400, 30)
-    character.clip_draw(frame * 100, 100, 100, 100, x, y)
+    character.clip_draw(frame * 100, 100 * dir, 100, 100, x, y)
     update_canvas()
     handle_events()
     frame = (frame + 1) % 8
@@ -40,6 +46,8 @@ while running:
     x = (1 - t) * (points[n - 1])[0] + t * (points[n])[0]
     y = (1 - t) * (points[n - 1])[1] + t * (points[n])[1]
     count = count + 2
+
+
 
     if count >= 100:
         n = (n + 1) % size
