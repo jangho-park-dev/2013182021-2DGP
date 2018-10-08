@@ -39,6 +39,8 @@ def draw_Drill07():
         frame = (frame + 1) % 8
         delay(0.03)
 
+    for i in range(0, 8):
+        draw_Drill07_2()
 
     for i in range(50, 100, 2):
 
@@ -57,6 +59,38 @@ def draw_Drill07():
         delay(0.03)
 
     n = 1
+
+
+def draw_Drill07_2():
+    global frame
+    global n
+
+    for i in range(0, 50, 2):
+        t = i / 100
+        x = ((-t**3 + 2*t**2 - t)*(points[n - 1])[0] + (3*t**3 - 5*t**2 + 2)*(points[n])[0] + (-3*t**3 + 4*t**2 + t)*(points[n + 1])[0] + (t**3 - t**2)*(points[n + 2])[0])/2
+        y = ((-t**3 + 2*t**2 - t)*(points[n - 1])[1] + (3*t**3 - 5*t**2 + 2)*(points[n])[1] + (-3*t**3 + 4*t**2 + t)*(points[n + 1])[1] + (t**3 - t**2)*(points[n + 2])[1])/2
+        clear_canvas()
+        grass.draw(400, 30)
+        character.clip_draw(frame * 100, 100, 100, 100, x, y)
+        update_canvas()
+        handle_events()
+        frame = (frame + 1) % 8
+        delay(0.03)
+
+    for i in range(50, 100, 2):
+        t = i / 100
+        x = ((-t**3 + 2*t**2 - t)*(points[n - 1])[0] + (3*t**3 - 5*t**2 + 2)*(points[n])[0] + (-3*t**3 + 4*t**2 + t)*(points[n + 1])[0] + (t**3 - t**2)*(points[n + 2])[0])/2
+        y = ((-t**3 + 2*t**2 - t)*(points[n - 1])[1] + (3*t**3 - 5*t**2 + 2)*(points[n])[1] + (-3*t**3 + 4*t**2 + t)*(points[n + 1])[1] + (t**3 - t**2)*(points[n + 2])[1])/2
+        clear_canvas()
+        grass.draw(400, 30)
+        character.clip_draw(frame * 100, 100, 100, 100, x, y)
+        update_canvas()
+        handle_events()
+        frame = (frame + 1) % 8
+        delay(0.03)
+    n = n + 1
+    print(n)
+
 
 while True:
     draw_Drill07()
