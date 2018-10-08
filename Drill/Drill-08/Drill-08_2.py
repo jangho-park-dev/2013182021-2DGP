@@ -48,16 +48,19 @@ def draw_Drill07():
         draw_Drill07_2()
 
 
-    for i in range(50, 100, 2):
+    for i in range(0, 100, 2):
         if (points[n - 1])[0] < (points[n])[0]:
             dir = 0
         if (points[n - 1])[0] > (points[n])[0]:
             dir = 1
 
         t = i / 100
-        x = (2*t**2-3*t+1) * (points[n - 1])[0] + (-4*t**2+4*t) * (points[n])[0] + (2*t**2-t) * (points[0])[0]
-        y = (2*t**2-3*t+1) * (points[n - 1])[1] + (-4*t**2+4*t) * (points[n])[1] + (2*t**2-t) * (points[0])[1]
-        clear_canvas()
+        x = ((-t ** 3 + 2 * t ** 2 - t) * (points[8])[0] + (3 * t ** 3 - 5 * t ** 2 + 2) * (points[9])[0] + (
+                    -3 * t ** 3 + 4 * t ** 2 + t) * (points[0])[0] + (t ** 3 - t ** 2) * (points[1])[0]) / 2
+        y = ((-t ** 3 + 2 * t ** 2 - t) * (points[8])[1] + (3 * t ** 3 - 5 * t ** 2 + 2) * (points[9])[1] + (
+                    -3 * t ** 3 + 4 * t ** 2 + t) * (points[0])[1] + (t ** 3 - t ** 2) * (points[1])[1]) / 2
+
+
         grass.draw(400, 30)
         character.clip_draw(frame * 100, 100 * dir, 100, 100, x, y)
         update_canvas()
@@ -72,23 +75,7 @@ def draw_Drill07_2():
     global frame
     global n
 
-    for i in range(0, 50, 2):
-        if (points[n - 1])[0] < (points[n])[0]:
-            dir = 0
-        if (points[n - 1])[0] > (points[n])[0]:
-            dir = 1
-
-        t = i / 100
-        x = ((-t**3 + 2*t**2 - t)*(points[n - 1])[0] + (3*t**3 - 5*t**2 + 2)*(points[n])[0] + (-3*t**3 + 4*t**2 + t)*(points[n + 1])[0] + (t**3 - t**2)*(points[n + 2])[0])/2
-        y = ((-t**3 + 2*t**2 - t)*(points[n - 1])[1] + (3*t**3 - 5*t**2 + 2)*(points[n])[1] + (-3*t**3 + 4*t**2 + t)*(points[n + 1])[1] + (t**3 - t**2)*(points[n + 2])[1])/2
-        clear_canvas()
-        grass.draw(400, 30)
-        character.clip_draw(frame * 100, 100 * dir, 100, 100, x, y)
-        update_canvas()
-        handle_events()
-        frame = (frame + 1) % 8
-        delay(0.03)
-    for i in range(50, 100, 2):
+    for i in range(0, 100, 2):
         if (points[n - 1])[0] < (points[n])[0]:
             dir = 0
         if (points[n - 1])[0] > (points[n])[0]:
