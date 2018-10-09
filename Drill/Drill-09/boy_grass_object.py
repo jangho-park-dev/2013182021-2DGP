@@ -33,7 +33,8 @@ class smallBall:
 
     def update(self):
         for i in range(0, smallballnum):
-            self.y -= self.speedY / 3
+            if self.y >= 60:
+                self.y -= self.speedY / 3
 
     def draw(self):
         self.image.draw(self.x, self.y)
@@ -52,8 +53,9 @@ def handle_events():
 # initialization code
 open_canvas()
 
-smallballnum = 20
-bigballnum = 20
+smallballnum = random.randint(0, 20)
+bigballnum = 20 - smallballnum
+print(smallballnum, bigballnum)
 
 grass = Grass()
 boy = Boy()
