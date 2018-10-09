@@ -29,7 +29,7 @@ class smallBall:
     def __init__(self):
         self.x, self.y = random.randint(0, 800), 600
         self.image = load_image('ball21x21.png')
-        self.speedY = random.randint(1, 3)
+        self.speedY = random.randint(2, 6)
 
     def update(self):
         for i in range(0, smallballnum):
@@ -44,7 +44,7 @@ class bigBall:
     def __init__(self):
         self.x, self.y = random.randint(0, 800), 600
         self.image = load_image('ball41x41.png')
-        self.speedY = random.randint(1, 3)
+        self.speedY = random.randint(2, 6)
 
     def update(self):
         for i in range(0, bigballnum):
@@ -83,6 +83,7 @@ Bballs = [bigBall() for i in range(bigballnum)]
 
 running = True;
 
+
 # game main loop code
 while running:
     handle_events()
@@ -106,7 +107,6 @@ while running:
     update_canvas()
 
     delay(0.05)
-
 
 
 # finalization code
