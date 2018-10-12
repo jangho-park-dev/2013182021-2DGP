@@ -14,7 +14,7 @@ def handle_events():
         if event.type == SDL_QUIT:
             Crunning = False
         elif event.type == SDL_MOUSEMOTION:
-            Cx, Cy = event.x, KPU_HEIGHT - 1 - event.y
+            Cx, Cy = event.x + 25, KPU_HEIGHT - 1 - event.y - 25
         elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
             Crunning = False
         elif event.type == SDL_MOUSEBUTTONUP:
@@ -42,7 +42,7 @@ hide_cursor()       # 커서 숨김
 while Crunning:
     clear_canvas()
     kpu_ground.draw(KPU_WIDTH // 2, KPU_HEIGHT // 2)
-    cursor.draw_now(Cx + 25, Cy - 25)
+    cursor.draw_now(Cx, Cy)
     character.clip_draw(frame * 100, 100 * dir, 100, 100, x, y)
     update_canvas()
     frame = (frame + 1) % 8

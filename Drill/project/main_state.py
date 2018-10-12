@@ -12,11 +12,15 @@ name = "MainState"
 
 boy = None
 grass = None
+arrow = None
+tower1 = None
 font = None
 
 flag = [False for i in range(0, 14)]
-n = 0
-flag[n] = True
+flag[0] = True
+
+mouseX, mouseY = 0, 0
+mouseXsave, mouseYsave = 0, 0
 
 
 class Grass:
@@ -28,7 +32,6 @@ class Grass:
 
 
 class Boy:
-    global n
     global flag
 
     def __init__(self):
@@ -151,10 +154,26 @@ class Boy:
         self.image.clip_draw(self.frame * 100, 100, 100, 100, self.x, self.y)
 
 
+class Arrow:
+    def __init__(self):
+        self.image = load_image('hand_arrow.png')
+
+    def draw(self):
+        self.image.draw_now(mouseX, mouseY)
+
+
+class Tower1:
+    def __init__(self):
+        self.image = load_image('hand_arrow.png')
+
+    def draw(self):
+        self.image.draw_now(mouseXsave, mouseYsave)
+
 def enter():
-    global boy, grass
+    global boy, grass, arrow
     boy = Boy()
     grass = Grass()
+    arrow = Arrow()
 
 
 def exit():
@@ -172,6 +191,7 @@ def resume():
 
 
 def handle_events():
+    global mouseX, mouseY, mouseXsave, mouseYsave
     events = get_events()
     for event in events:
         if event.type == SDL_QUIT:
@@ -180,16 +200,26 @@ def handle_events():
             game_framework.change_state(title_state)
         elif event.type == SDL_KEYDOWN and event.key == SDLK_p:
             game_framework.push_state(high_grade_pause_state)
+        elif event.type == SDL_MOUSEMOTION:
+            mouseX, mouseY = event.x + 25, 640 - 1 - event.y - 25
+        elif event.type == SDL_MOUSEBUTTONUP:
+            pass
+        elif event.type == SDL_MOUSEBUTTONDOWN:
+            if 660 <= event.x and event.x <= 705 and 395 <= event.y and event.y <= 465:
+                print(123)
+                mouseXsave, mouseYsave = event.x, 640 - 1 - event.y
 
 
 def update():
     boy.update()
+    hide_cursor()
 
 
 def draw():
     clear_canvas()
     grass.draw()
     boy.draw()
+    arrow.draw()
     update_canvas()
 
 
