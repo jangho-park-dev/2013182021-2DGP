@@ -8,7 +8,7 @@ image2 = None
 cnt = 0
 
 def enter():
-    global image
+    global image, image2
     image = load_image('pause11.png')
     image2 = load_image('pause22.png')
 
@@ -17,6 +17,7 @@ def exit():
     global image, image2
     del (image)
     del (image2)
+
 
 def handle_events():
     events = get_events()
@@ -52,9 +53,3 @@ def pause():
 
 def resume():
     pass
-
-
-
-
-
-
