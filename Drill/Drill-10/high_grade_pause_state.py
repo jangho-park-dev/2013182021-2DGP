@@ -2,19 +2,21 @@ import game_framework
 from pico2d import *
 
 
-name = "PauseState"
+name = "HighGradePauseState"
 image = None
-
+image2 = None
+cnt = 0
 
 def enter():
     global image
     image = load_image('pause11.png')
+    image2 = load_image('pause22.png')
 
 
 def exit():
-    global image
+    global image, image2
     del (image)
-
+    del (image2)
 
 def handle_events():
     events = get_events()
@@ -29,8 +31,14 @@ def handle_events():
 
 
 def draw():
-    clear_canvas()
-    image.draw(400, 300)
+    global cnt
+    if cnt >= 100:
+        cnt = 0
+    cnt += 1
+    if cnt < 50:
+        image.draw(400, 300)
+    elif cnt < 100:
+        image2.draw(400, 300)
     update_canvas()
 
 
