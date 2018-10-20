@@ -16,13 +16,19 @@ arrow = None
 tower1 = None
 font = None
 
+
 flag = [False for i in range(0, 14)]
 flag[0] = True
 
-mouseFlag = False
+mouseFlag = [False for i in range(0, 30)]
+print(mouseFlag)
+mouseNum = 0
+mouseXsave = [0 for i in range(0, 30)]
+mouseYsave = [0 for i in range(0, 30)]
+print(mouseXsave, mouseYsave)
 
 mouseX, mouseY = 0, 0
-mouseXsave, mouseYsave = 0, 0
+#mouseXsave, mouseYsave = 0, 0
 
 
 class Grass:
@@ -170,7 +176,9 @@ class Tower1:
         self.frame = 0
 
     def draw(self):
-        self.image.clip_draw(self.frame * 32, 0, 32, 32, mouseXsave, mouseYsave)
+        for i in range(mouseNum):
+            self.image.clip_draw(self.frame * 32, 0, 32, 32, mouseXsave[i], mouseYsave[i])
+
 
 def enter():
     global boy, grass, arrow, tower1
@@ -195,7 +203,7 @@ def resume():
 
 
 def handle_events():
-    global mouseX, mouseY, mouseXsave, mouseYsave, mouseFlag
+    global mouseX, mouseY, mouseXsave, mouseYsave, mouseFlag, mouseNum
     events = get_events()
     for event in events:
         if event.type == SDL_QUIT:
@@ -207,17 +215,17 @@ def handle_events():
         elif event.type == SDL_MOUSEMOTION:
             mouseX, mouseY = event.x + 25, 640 - 1 - event.y - 25
         elif event.type == SDL_MOUSEBUTTONDOWN:
-            print(123)
             if 660 <= event.x:
                 if event.x <= 705:
                     if 175 <= event.y:
                         if event.y <= 245:
-                            mouseFlag = True
-                            print(mouseXsave, mouseYsave)
+                            mouseFlag[mouseNum] = True
+                            print(mouseXsave[mouseNum], mouseYsave[mouseNum])
         elif event.type == SDL_MOUSEBUTTONUP:
-            if mouseFlag:
-                mouseXsave, mouseYsave = event.x, 640 - 1 - event.y
+            if mouseFlag[mouseNum]:
+                mouseXsave[mouseNum], mouseYsave[mouseNum] = event.x, 640 - 1 - event.y
                 print(mouseXsave, mouseYsave)
+                mouseNum += 1
             else:
                 pass
 
