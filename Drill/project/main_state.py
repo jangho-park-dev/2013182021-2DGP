@@ -164,16 +164,17 @@ class Arrow:
 
 class Tower1:
     def __init__(self):
-        self.image = load_image('hand_arrow.png')
+        self.image = load_image('turret5.png')
 
     def draw(self):
         self.image.draw_now(mouseXsave, mouseYsave)
 
 def enter():
-    global boy, grass, arrow
+    global boy, grass, arrow, tower1
     boy = Boy()
     grass = Grass()
     arrow = Arrow()
+    tower1 = Tower1()
 
 
 def exit():
@@ -202,12 +203,16 @@ def handle_events():
             game_framework.push_state(high_grade_pause_state)
         elif event.type == SDL_MOUSEMOTION:
             mouseX, mouseY = event.x + 25, 640 - 1 - event.y - 25
+        elif event.type == SDL_MOUSEBUTTONDOWN:
+            print(123)
+            if 660 <= event.x:
+                if event.x <= 705:
+                    if 175 <= event.y:
+                        if event.y <= 245:
+                            mouseXsave, mouseYsave = event.x, 640 - 1 - event.y
+                            print(mouseXsave, mouseYsave)
         elif event.type == SDL_MOUSEBUTTONUP:
             pass
-        elif event.type == SDL_MOUSEBUTTONDOWN:
-            if 660 <= event.x and event.x <= 705 and 395 <= event.y and event.y <= 465:
-                print(123)
-                mouseXsave, mouseYsave = event.x, 640 - 1 - event.y
 
 
 def update():
@@ -220,6 +225,7 @@ def draw():
     grass.draw()
     boy.draw()
     arrow.draw()
+    tower1.draw()
     update_canvas()
 
 
