@@ -167,9 +167,10 @@ class Arrow:
 class Tower1:
     def __init__(self):
         self.image = load_image('turret5.png')
+        self.frame = 0
 
     def draw(self):
-        self.image.draw_now(mouseXsave, mouseYsave)
+        self.image.clip_draw(self.frame * 32, 0, 32, 32, mouseXsave, mouseYsave)
 
 def enter():
     global boy, grass, arrow, tower1
@@ -212,7 +213,6 @@ def handle_events():
                     if 175 <= event.y:
                         if event.y <= 245:
                             mouseFlag = True
-                            #mouseXsave, mouseYsave = event.x, 640 - 1 - event.y
                             print(mouseXsave, mouseYsave)
         elif event.type == SDL_MOUSEBUTTONUP:
             if mouseFlag:
