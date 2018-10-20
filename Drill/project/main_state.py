@@ -19,6 +19,8 @@ font = None
 flag = [False for i in range(0, 14)]
 flag[0] = True
 
+mouseFlag = False
+
 mouseX, mouseY = 0, 0
 mouseXsave, mouseYsave = 0, 0
 
@@ -192,7 +194,7 @@ def resume():
 
 
 def handle_events():
-    global mouseX, mouseY, mouseXsave, mouseYsave
+    global mouseX, mouseY, mouseXsave, mouseYsave, mouseFlag
     events = get_events()
     for event in events:
         if event.type == SDL_QUIT:
@@ -209,10 +211,15 @@ def handle_events():
                 if event.x <= 705:
                     if 175 <= event.y:
                         if event.y <= 245:
-                            mouseXsave, mouseYsave = event.x, 640 - 1 - event.y
+                            mouseFlag = True
+                            #mouseXsave, mouseYsave = event.x, 640 - 1 - event.y
                             print(mouseXsave, mouseYsave)
         elif event.type == SDL_MOUSEBUTTONUP:
-            pass
+            if mouseFlag:
+                mouseXsave, mouseYsave = event.x, 640 - 1 - event.y
+                print(mouseXsave, mouseYsave)
+            else:
+                pass
 
 
 def update():
