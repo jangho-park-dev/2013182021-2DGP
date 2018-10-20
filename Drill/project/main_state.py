@@ -175,6 +175,10 @@ class Tower1:
         self.image = load_image('turret5.png')
         self.frame = 0
 
+    def update(self):
+        self.frame = (self.frame + 1) % 5
+
+
     def draw(self):
         for i in range(mouseNum):
             self.image.clip_draw(self.frame * 32, 0, 32, 32, mouseXsave[i], mouseYsave[i])
@@ -232,6 +236,7 @@ def handle_events():
 
 def update():
     boy.update()
+    tower1.update()
     hide_cursor()
 
 
