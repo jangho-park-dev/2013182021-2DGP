@@ -128,6 +128,7 @@ class DashState:
         elif event == LEFT_UP:
             boy.velocity += 5
         boy.dir = boy.velocity
+        boy.num = 15
 
     @staticmethod
     def exit(boy, event):
@@ -142,6 +143,10 @@ class DashState:
         boy.timer -= 1
         boy.x += boy.velocity * 5
         boy.x = clamp(25, boy.x, 1600 - 25)
+        boy.num -= 1
+        if boy.num == 0:
+            boy.cur_state = RunState
+            boy.cur_state.enter(boy, None)
 
     @staticmethod
     def draw(boy):
