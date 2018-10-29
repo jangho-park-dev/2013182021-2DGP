@@ -133,12 +133,14 @@ class DashState:
     def exit(boy, event):
         if event == SPACE:
             boy.fire_ball()
+        boy.cur_state = RunState
+        boy.cur_state.enter(boy, None)
 
     @staticmethod
     def do(boy):
         boy.frame = (boy.frame + 1) % 8
         boy.timer -= 1
-        boy.x += boy.velocity
+        boy.x += boy.velocity * 5
         boy.x = clamp(25, boy.x, 1600 - 25)
 
     @staticmethod
