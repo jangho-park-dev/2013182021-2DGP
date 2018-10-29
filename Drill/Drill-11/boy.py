@@ -2,7 +2,7 @@ from pico2d import *
 from ball import Ball
 
 import game_world
-
+# 완성
 # Boy Event
 RIGHT_DOWN, LEFT_DOWN, RIGHT_UP, LEFT_UP, SLEEP_TIMER, SPACE, LSHIFT_DOWN, RSHIFT_DOWN, LSHIFT_UP, RSHIFT_UP = range(10)
 
