@@ -131,11 +131,16 @@ class SleepState:
             boy.image.clip_composite_draw(int(boy.frame) * 100, 200, 100, 100, -3.141592 / 2, '', boy.x + 25, boy.y - 25, 100, 100)
 
 
+import math
+
+
 class GhostState:
 
     @staticmethod
     def enter(boy, event):
         boy.frame = 0
+        boy.num = 3.141592
+        boy.moveY = 0
 
     @staticmethod
     def exit(boy, event):
@@ -143,13 +148,24 @@ class GhostState:
 
     @staticmethod
     def do(boy):
-        print('in ghostState')
+        #print('in ghostState')
         boy.frame = (boy.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 8
+        if boy.num > 0:
+            boy.num -= 0.12
+        if boy.moveY < 100:
+            boy.moveY += 2
+            print(boy.moveY)
 
     @staticmethod
     def draw(boy):
         if boy.dir == 1:
+            boy.image.opacify(1.0)
             boy.image.clip_composite_draw(int(boy.frame) * 100, 300, 100, 100, 3.141592 / 2, '', boy.x - 25, boy.y - 25, 100, 100)
+            boy.image.opacify(0.5)
+            boy.image.clip_composite_draw(int(boy.frame) * 100, 300, 100, 100, boy.num / 2, '', boy.x - 25,
+                                          boy.y - 25 + boy.moveY,
+                                          100, 100)
+            boy.image.opacify(1.0)
         else:
             boy.image.clip_composite_draw(int(boy.frame) * 100, 200, 100, 100, -3.141592 / 2, '', boy.x + 25, boy.y - 25, 100, 100)
 
