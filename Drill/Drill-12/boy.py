@@ -156,7 +156,7 @@ class GhostState:
         boy.timer = get_time()
         print(boy.timer - boy.firstTime)
         boy.firstTime = boy.timer
-        
+
         boy.frame = (boy.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 8
         if boy.num > 0:
             boy.num -= 0.12
@@ -186,6 +186,13 @@ class GhostState:
             boy.image.opacify(1.0)
             boy.image.clip_composite_draw(int(boy.frame) * 100, 200, 100, 100, -3.141592 / 2, '', boy.x + 25, boy.y - 25, 100, 100)
             boy.image.opacify(0.5)
+            if boy.moveY != 100:
+                boy.image.clip_composite_draw(int(boy.frame) * 100, 200, 100, 100, -boy.num / 2, '', boy.x + 25, boy.y - 25 + boy.moveY,
+                                            100, 100)
+            elif boy.moveY == 100:
+                boy.image.clip_composite_draw(int(boy.frame) * 100, 200, 100, 100, -boy.num / 2, '', boy.circleX + boy.x - 25,
+                                              boy.circleY + boy.y - 25 + boy.moveY, 100, 100)
+            boy.image.opacify(1.0)
 
 
 
