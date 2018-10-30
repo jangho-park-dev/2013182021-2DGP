@@ -141,6 +141,11 @@ class GhostState:
         boy.frame = 0
         boy.num = 3.141592
         boy.moveY = 0
+        boy.circleX = 0
+        boy.circleY = 0
+        boy.theta = -90
+        boy.timer = 0
+        boy.firstTime = get_time()
 
     @staticmethod
     def exit(boy, event):
@@ -148,13 +153,20 @@ class GhostState:
 
     @staticmethod
     def do(boy):
-        #print('in ghostState')
+        boy.timer = get_time()
+        print(boy.timer - boy.firstTime)
+        boy.firstTime = boy.timer
+        
         boy.frame = (boy.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 8
         if boy.num > 0:
             boy.num -= 0.12
         if boy.moveY < 100:
             boy.moveY += 2
             print(boy.moveY)
+        if boy.moveY == 100:
+            boy.circleX = 3 * PIXEL_PER_METER * math.cos(boy.theta)
+            boy.circleY = 3 * PIXEL_PER_METER * math.sin(boy.theta) + 100
+            boy.theta = math.radians(720 * boy.firstTime)
 
     @staticmethod
     def draw(boy):
@@ -162,12 +174,18 @@ class GhostState:
             boy.image.opacify(1.0)
             boy.image.clip_composite_draw(int(boy.frame) * 100, 300, 100, 100, 3.141592 / 2, '', boy.x - 25, boy.y - 25, 100, 100)
             boy.image.opacify(0.5)
-            boy.image.clip_composite_draw(int(boy.frame) * 100, 300, 100, 100, boy.num / 2, '', boy.x - 25,
-                                          boy.y - 25 + boy.moveY,
-                                          100, 100)
+            if boy.moveY != 100:
+                boy.image.clip_composite_draw(int(boy.frame) * 100, 300, 100, 100, boy.num / 2, '', boy.x - 25, boy.y - 25 + boy.moveY,
+                                            100, 100)
+                boy.image.opacify(1.0)
+            elif boy.moveY == 100:
+                boy.image.clip_composite_draw(int(boy.frame) * 100, 300, 100, 100, boy.num / 2, '', boy.circleX + boy.x - 25,
+                                              boy.circleY + boy.y - 25 + boy.moveY, 100, 100)
             boy.image.opacify(1.0)
         else:
+            boy.image.opacify(1.0)
             boy.image.clip_composite_draw(int(boy.frame) * 100, 200, 100, 100, -3.141592 / 2, '', boy.x + 25, boy.y - 25, 100, 100)
+            boy.image.opacify(0.5)
 
 
 
