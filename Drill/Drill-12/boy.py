@@ -121,6 +121,7 @@ class SleepState:
     @staticmethod
     def do(boy):
         boy.frame = (boy.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 8
+        boy.add_event(GHOST)
 
     @staticmethod
     def draw(boy):
@@ -142,6 +143,7 @@ class GhostState:
 
     @staticmethod
     def do(boy):
+        print('in ghostState')
         boy.frame = (boy.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 8
 
     @staticmethod
