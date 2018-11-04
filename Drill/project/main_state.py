@@ -10,9 +10,10 @@ import high_grade_pause_state
 
 name = "MainState"
 
-enemy1 = None
-enemy2 = None
-enemy3 = None
+enemy1 = [None for i in range(0, 5)]
+enemy2 = [None for i in range(0, 5)]
+enemy3 = [None for i in range(0, 5)]
+
 grass = None
 arrow = None
 tower1 = None
@@ -20,15 +21,6 @@ tower2 = None
 tower3 = None
 font = None
 
-
-flag = [False for i in range(0, 14)]
-flag[0] = True
-
-flag2 = [False for i in range(0, 14)]
-flag2[0] = True
-
-flag3 = [False for i in range(0, 14)]
-flag3[0] = True
 
 mouseFlag1 = [False for i in range(0, 30)]
 mouseNum1 = 0
@@ -57,16 +49,19 @@ class Grass:
 
 
 class Enemy1:
-    global flag
+    image = None
 
     def __init__(self):
         self.x, self.y = 100, 640
         self.frame = 0
-        self.image = load_image('Monsters.png')
+        if Enemy1.image == None:
+            Enemy1.image = load_image('Monsters.png')
+        self.flag = [False for i in range(0, 14)]
+        self.flag[0] = True
 
     def update(self):
         self.frame = (self.frame + 1) % 2
-        delay(0.005)
+        delay(0.001)
         # enemy location set
         # 1. y == 384  y--
         # 2. x == 220  x++
@@ -81,116 +76,117 @@ class Enemy1:
         # 11. y == 248  y--
         # 12. x == 564  x++
         # 13. y == 0  y--
-        if flag[0]:
+        if self.flag[0]:
             if self.y >= 384:
-                self.y -= 1
+                self.y -= 1 * game_framework.frame_time * 100
             else:
-                flag[0] = False
-                flag[1] = True
+                self.flag[0] = False
+                self.flag[1] = True
 
-        if flag[1]:
+        if self.flag[1]:
             if self.x <= 220:
-                self.x += 1
+                self.x += 1 * game_framework.frame_time * 100
             else:
-                flag[1] = False
-                flag[2] = True
+                self.flag[1] = False
+                self.flag[2] = True
 
-        if flag[2]:
+        if self.flag[2]:
             if self.y >= 256:
-                self.y -= 1
+                self.y -= 1 * game_framework.frame_time * 100
             else:
-                flag[2] = False
-                flag[3] = True
+                self.flag[2] = False
+                self.flag[3] = True
 
-        if flag[3]:
+        if self.flag[3]:
             if self.x >= 100:
-                self.x -= 1
+                self.x -= 1 * game_framework.frame_time * 100
             else:
-                flag[3] = False
-                flag[4] = True
+                self.flag[3] = False
+                self.flag[4] = True
 
-        if flag[4]:
+        if self.flag[4]:
             if self.y >= 114:
-                self.y -= 1
+                self.y -= 1 * game_framework.frame_time * 100
             else:
-                flag[4] = False
-                flag[5] = True
+                self.flag[4] = False
+                self.flag[5] = True
 
-        if flag[5]:
+        if self.flag[5]:
             if self.x <= 333:
-                self.x += 1
+                self.x += 1 * game_framework.frame_time * 100
             else:
-                flag[5] = False
-                flag[6] = True
+                self.flag[5] = False
+                self.flag[6] = True
 
-        if flag[6]:
+        if self.flag[6]:
             if self.y <= 512:
-                self.y += 1
+                self.y += 1 * game_framework.frame_time * 100
             else:
-                flag[6] = False
-                flag[7] = True
+                self.flag[6] = False
+                self.flag[7] = True
 
-        if flag[7]:
+        if self.flag[7]:
             if self.x <= 580:
-                self.x += 1
+                self.x += 1 * game_framework.frame_time * 100
             else:
-                flag[7] = False
-                flag[8] = True
+                self.flag[7] = False
+                self.flag[8] = True
 
-        if flag[8]:
+        if self.flag[8]:
             if self.y >= 384:
-                self.y -= 1
+                self.y -= 1 * game_framework.frame_time * 100
             else:
-                flag[8] = False
-                flag[9] = True
+                self.flag[8] = False
+                self.flag[9] = True
 
-        if flag[9]:
+        if self.flag[9]:
             if self.x >= 456:
-                self.x -= 1
+                self.x -= 1 * game_framework.frame_time * 100
             else:
-                flag[9] = False
-                flag[10] = True
+                self.flag[9] = False
+                self.flag[10] = True
 
-        if flag[10]:
+        if self.flag[10]:
             if self.y >= 248:
-                self.y -= 1
+                self.y -= 1 * game_framework.frame_time * 100
             else:
-                flag[10] = False
-                flag[11] = True
+                self.flag[10] = False
+                self.flag[11] = True
 
-        if flag[11]:
+        if self.flag[11]:
             if self.x <= 564:
-                self.x += 1
+                self.x += 1 * game_framework.frame_time * 100
             else:
-                flag[11] = False
-                flag[12] = True
+                self.flag[11] = False
+                self.flag[12] = True
 
-        if flag[12]:
+        if self.flag[12]:
             if self.y >= 0:
-                self.y -= 1
+                self.y -= 1 * game_framework.frame_time * 100
             else:
-                flag[12] = False
-                flag[0] = True
-                n = 0
+                self.flag[12] = False
+                self.flag[0] = True
                 self.x, self.y = 100, 640
 
 
     def draw(self):
-        #self.image.clip_draw(self.frame * 100, 100, 100, 100, self.x, self.y)
         self.image.clip_draw(self.frame * 40, 0, 40, 50, self.x, self.y)
 
 
 class Enemy2:
-    global flag2
+    image = None
 
     def __init__(self):
-        self.x, self.y = 100, 700
+        self.x, self.y = 100, 640
         self.frame = 0
-        self.image = load_image('Monsters.png')
+        if Enemy2.image == None:
+            Enemy2.image = load_image('Monsters.png')
+        self.flag = [False for i in range(0, 14)]
+        self.flag[0] = True
 
     def update(self):
         self.frame = (self.frame + 1) % 2
-        delay(0.005)
+        delay(0.001)
         # enemy location set
         # 1. y == 384  y--
         # 2. x == 220  x++
@@ -205,96 +201,96 @@ class Enemy2:
         # 11. y == 248  y--
         # 12. x == 564  x++
         # 13. y == 0  y--
-        if flag2[0]:
+        if self.flag[0]:
             if self.y >= 384:
-                self.y -= 1
+                self.y -= 1 * game_framework.frame_time * 100
             else:
-                flag2[0] = False
-                flag2[1] = True
+                self.flag[0] = False
+                self.flag[1] = True
 
-        if flag2[1]:
+        if self.flag[1]:
             if self.x <= 220:
-                self.x += 1
+                self.x += 1 * game_framework.frame_time * 100
             else:
-                flag2[1] = False
-                flag2[2] = True
+                self.flag[1] = False
+                self.flag[2] = True
 
-        if flag2[2]:
+        if self.flag[2]:
             if self.y >= 256:
-                self.y -= 1
+                self.y -= 1 * game_framework.frame_time * 100
             else:
-                flag2[2] = False
-                flag2[3] = True
+                self.flag[2] = False
+                self.flag[3] = True
 
-        if flag2[3]:
+        if self.flag[3]:
             if self.x >= 100:
-                self.x -= 1
+                self.x -= 1 * game_framework.frame_time * 100
             else:
-                flag2[3] = False
-                flag2[4] = True
+                self.flag[3] = False
+                self.flag[4] = True
 
-        if flag2[4]:
+        if self.flag[4]:
             if self.y >= 114:
-                self.y -= 1
+                self.y -= 1 * game_framework.frame_time * 100
             else:
-                flag2[4] = False
-                flag2[5] = True
+                self.flag[4] = False
+                self.flag[5] = True
 
-        if flag2[5]:
+        if self.flag[5]:
             if self.x <= 333:
-                self.x += 1
+                self.x += 1 * game_framework.frame_time * 100
             else:
-                flag2[5] = False
-                flag2[6] = True
+                self.flag[5] = False
+                self.flag[6] = True
 
-        if flag2[6]:
+        if self.flag[6]:
             if self.y <= 512:
-                self.y += 1
+                self.y += 1 * game_framework.frame_time * 100
             else:
-                flag2[6] = False
-                flag2[7] = True
+                self.flag[6] = False
+                self.flag[7] = True
 
-        if flag2[7]:
+        if self.flag[7]:
             if self.x <= 580:
-                self.x += 1
+                self.x += 1 * game_framework.frame_time * 100
             else:
-                flag2[7] = False
-                flag2[8] = True
+                self.flag[7] = False
+                self.flag[8] = True
 
-        if flag2[8]:
+        if self.flag[8]:
             if self.y >= 384:
-                self.y -= 1
+                self.y -= 1 * game_framework.frame_time * 100
             else:
-                flag2[8] = False
-                flag2[9] = True
+                self.flag[8] = False
+                self.flag[9] = True
 
-        if flag2[9]:
+        if self.flag[9]:
             if self.x >= 456:
-                self.x -= 1
+                self.x -= 1 * game_framework.frame_time * 100
             else:
-                flag2[9] = False
-                flag2[10] = True
+                self.flag[9] = False
+                self.flag[10] = True
 
-        if flag2[10]:
+        if self.flag[10]:
             if self.y >= 248:
-                self.y -= 1
+                self.y -= 1 * game_framework.frame_time * 100
             else:
-                flag2[10] = False
-                flag2[11] = True
+                self.flag[10] = False
+                self.flag[11] = True
 
-        if flag2[11]:
+        if self.flag[11]:
             if self.x <= 564:
-                self.x += 1
+                self.x += 1 * game_framework.frame_time * 100
             else:
-                flag2[11] = False
-                flag2[12] = True
+                self.flag[11] = False
+                self.flag[12] = True
 
-        if flag2[12]:
+        if self.flag[12]:
             if self.y >= 0:
-                self.y -= 1
+                self.y -= 1 * game_framework.frame_time * 100
             else:
-                flag2[12] = False
-                flag2[0] = True
+                self.flag[12] = False
+                self.flag[0] = True
                 n = 0
                 self.x, self.y = 100, 640
 
@@ -304,16 +300,19 @@ class Enemy2:
 
 
 class Enemy3:
-    global flag3
+    image = None
 
     def __init__(self):
-        self.x, self.y = 100, 760
+        self.x, self.y = 100, 640
         self.frame = 0
-        self.image = load_image('Monsters.png')
+        if Enemy3.image == None:
+            Enemy3.image = load_image('Monsters.png')
+        self.flag = [False for i in range(0, 14)]
+        self.flag[0] = True
 
     def update(self):
         self.frame = (self.frame + 1) % 2
-        delay(0.005)
+        delay(0.001)
         # enemy location set
         # 1. y == 384  y--
         # 2. x == 220  x++
@@ -328,96 +327,96 @@ class Enemy3:
         # 11. y == 248  y--
         # 12. x == 564  x++
         # 13. y == 0  y--
-        if flag3[0]:
+        if self.flag[0]:
             if self.y >= 384:
-                self.y -= 1
+                self.y -= 1 * game_framework.frame_time * 100
             else:
-                flag3[0] = False
-                flag3[1] = True
+                self.flag[0] = False
+                self.flag[1] = True
 
-        if flag3[1]:
+        if self.flag[1]:
             if self.x <= 220:
-                self.x += 1
+                self.x += 1 * game_framework.frame_time * 100
             else:
-                flag3[1] = False
-                flag3[2] = True
+                self.flag[1] = False
+                self.flag[2] = True
 
-        if flag3[2]:
+        if self.flag[2]:
             if self.y >= 256:
-                self.y -= 1
+                self.y -= 1 * game_framework.frame_time * 100
             else:
-                flag3[2] = False
-                flag3[3] = True
+                self.flag[2] = False
+                self.flag[3] = True
 
-        if flag3[3]:
+        if self.flag[3]:
             if self.x >= 100:
-                self.x -= 1
+                self.x -= 1 * game_framework.frame_time * 100
             else:
-                flag3[3] = False
-                flag3[4] = True
+                self.flag[3] = False
+                self.flag[4] = True
 
-        if flag3[4]:
+        if self.flag[4]:
             if self.y >= 114:
-                self.y -= 1
+                self.y -= 1 * game_framework.frame_time * 100
             else:
-                flag3[4] = False
-                flag3[5] = True
+                self.flag[4] = False
+                self.flag[5] = True
 
-        if flag3[5]:
+        if self.flag[5]:
             if self.x <= 333:
-                self.x += 1
+                self.x += 1 * game_framework.frame_time * 100
             else:
-                flag3[5] = False
-                flag3[6] = True
+                self.flag[5] = False
+                self.flag[6] = True
 
-        if flag3[6]:
+        if self.flag[6]:
             if self.y <= 512:
-                self.y += 1
+                self.y += 1 * game_framework.frame_time * 100
             else:
-                flag3[6] = False
-                flag3[7] = True
+                self.flag[6] = False
+                self.flag[7] = True
 
-        if flag3[7]:
+        if self.flag[7]:
             if self.x <= 580:
-                self.x += 1
+                self.x += 1 * game_framework.frame_time * 100
             else:
-                flag3[7] = False
-                flag3[8] = True
+                self.flag[7] = False
+                self.flag[8] = True
 
-        if flag3[8]:
+        if self.flag[8]:
             if self.y >= 384:
-                self.y -= 1
+                self.y -= 1 * game_framework.frame_time * 100
             else:
-                flag3[8] = False
-                flag3[9] = True
+                self.flag[8] = False
+                self.flag[9] = True
 
-        if flag3[9]:
+        if self.flag[9]:
             if self.x >= 456:
-                self.x -= 1
+                self.x -= 1 * game_framework.frame_time * 100
             else:
-                flag3[9] = False
-                flag3[10] = True
+                self.flag[9] = False
+                self.flag[10] = True
 
-        if flag3[10]:
+        if self.flag[10]:
             if self.y >= 248:
-                self.y -= 1
+                self.y -= 1 * game_framework.frame_time * 100
             else:
-                flag3[10] = False
-                flag3[11] = True
+                self.flag[10] = False
+                self.flag[11] = True
 
-        if flag3[11]:
+        if self.flag[11]:
             if self.x <= 564:
-                self.x += 1
+                self.x += 1 * game_framework.frame_time * 100
             else:
-                flag3[11] = False
-                flag3[12] = True
+                self.flag[11] = False
+                self.flag[12] = True
 
-        if flag3[12]:
+        if self.flag[12]:
             if self.y >= 0:
-                self.y -= 1
+                self.y -= 1 * game_framework.frame_time * 100
             else:
-                flag3[12] = False
-                flag3[0] = True
+                self.flag[12] = False
+                self.flag[0] = True
                 n = 0
                 self.x, self.y = 100, 640
 
@@ -442,7 +441,6 @@ class Tower1:
     def update(self):
         self.frame = 2#(self.frame + 1) % 1
 
-
     def draw(self):
         for i in range(mouseNum1):
             self.image.clip_draw(self.frame * 32, 0, 32, 32, mouseXsave1[i], mouseYsave1[i])
@@ -455,7 +453,6 @@ class Tower2:
 
     def update(self):
         self.frame = (self.frame + 1) % 1
-
 
     def draw(self):
         for i in range(mouseNum2):
@@ -470,7 +467,6 @@ class Tower3:
     def update(self):
         self.frame = (self.frame + 1) % 1
 
-
     def draw(self):
         for i in range(mouseNum3):
             self.image.clip_draw(self.frame * 36, 120, 36, 40, mouseXsave3[i], mouseYsave3[i])
@@ -478,9 +474,12 @@ class Tower3:
 
 def enter():
     global enemy1, enemy2, enemy3, grass, arrow, tower1, tower2, tower3
-    enemy1 = Enemy1()
-    enemy2 = Enemy2()
-    enemy3 = Enemy3()
+    for i in range(0, 5):
+        enemy1[i] = Enemy1()
+    for i in range(0, 5):
+        enemy2[i] = Enemy2()
+    for i in range(0, 5):
+        enemy3[i] = Enemy3()
     grass = Grass()
     arrow = Arrow()
     tower1 = Tower1()
@@ -490,9 +489,12 @@ def enter():
 
 def exit():
     global enemy1, enemy2, enemy3, tower1, tower2, tower3, grass
-    del(enemy1)
-    del(enemy2)
-    del(enemy3)
+    for i in range(0, 5):
+        del(enemy1[i])
+    for i in range(0, 5):
+        del(enemy2[i])
+    for i in range(0, 5):
+        del(enemy3[i])
     del(tower1)
     del(tower2)
     del(tower3)
@@ -558,10 +560,42 @@ def handle_events():
                 pass
 
 
+time = 0
+
 def update():
-    enemy1.update()
-    enemy2.update()
-    enemy3.update()
+    global time
+    enemy1[0].update()
+    time += game_framework.frame_time
+    #print(time)
+    if time >= 1:
+        enemy1[1].update()
+    if time >= 2:
+        enemy1[2].update()
+    if time >= 3:
+        enemy1[3].update()
+    if time >= 4:
+        enemy1[4].update()
+    if time >= 5:
+        enemy2[0].update()
+    if time >= 6:
+        enemy2[1].update()
+    if time >= 7:
+        enemy2[2].update()
+    if time >= 8:
+        enemy2[3].update()
+    if time >= 9:
+        enemy2[4].update()
+    if time >= 10:
+        enemy3[0].update()
+    if time >= 11:
+        enemy3[1].update()
+    if time >= 12:
+        enemy3[2].update()
+    if time >= 13:
+        enemy3[3].update()
+    if time >= 14:
+        enemy3[4].update()
+
     tower1.update()
     tower2.update()
     tower3.update()
@@ -569,11 +603,38 @@ def update():
 
 
 def draw():
+    global time
     clear_canvas()
     grass.draw()
-    enemy1.draw()
-    enemy2.draw()
-    enemy3.draw()
+    enemy1[0].draw()
+    if time >= 1:
+        enemy1[1].draw()
+    if time >= 2:
+        enemy1[2].draw()
+    if time >= 3:
+        enemy1[3].draw()
+    if time >= 4:
+        enemy1[4].draw()
+    if time >= 5:
+        enemy2[0].draw()
+    if time >= 6:
+        enemy2[1].draw()
+    if time >= 7:
+        enemy2[2].draw()
+    if time >= 8:
+        enemy2[3].draw()
+    if time >= 9:
+        enemy2[4].draw()
+    if time >= 10:
+        enemy3[0].draw()
+    if time >= 11:
+        enemy3[1].draw()
+    if time >= 12:
+        enemy3[2].draw()
+    if time >= 13:
+        enemy3[3].draw()
+    if time >= 14:
+        enemy3[4].draw()
     arrow.draw()
     tower1.draw()
     tower2.draw()
