@@ -20,7 +20,7 @@ tower1 = None
 tower2 = None
 tower3 = None
 font = None
-
+first_time = 0
 
 mouseFlag1 = [False for i in range(0, 30)]
 mouseNum1 = 0
@@ -38,6 +38,22 @@ mouseXsave3 = [0 for i in range(0, 30)]
 mouseYsave3 = [0 for i in range(0, 30)]
 
 mouseX, mouseY = 0, 0
+
+
+def enter():
+    global enemy1, enemy2, enemy3, grass, arrow, tower1, tower2, tower3, first_time
+    for i in range(0, 5):
+        enemy1[i] = Enemy1()
+    for i in range(0, 5):
+        enemy2[i] = Enemy2()
+    for i in range(0, 5):
+        enemy3[i] = Enemy3()
+    grass = Grass()
+    arrow = Arrow()
+    tower1 = Tower1()
+    tower2 = Tower2()
+    tower3 = Tower3()
+    first_time = get_time()
 
 
 class Grass:
@@ -58,10 +74,17 @@ class Enemy1:
             Enemy1.image = load_image('Monsters.png')
         self.flag = [False for i in range(0, 14)]
         self.flag[0] = True
+        self.time = get_time()
+        self.timer = 0
+        self.FRT = 0
 
     def update(self):
         self.frame = (self.frame + 1) % 2
-        delay(0.001)
+        #delay(0.001)
+        self.timer = get_time()
+        self.FRT = self.timer - self.time
+        print(self.FRT)
+        self.time = self.timer
         # enemy location set
         # 1. y == 384  y--
         # 2. x == 220  x++
@@ -186,7 +209,7 @@ class Enemy2:
 
     def update(self):
         self.frame = (self.frame + 1) % 2
-        delay(0.001)
+        #delay(0.001)
         # enemy location set
         # 1. y == 384  y--
         # 2. x == 220  x++
@@ -312,7 +335,7 @@ class Enemy3:
 
     def update(self):
         self.frame = (self.frame + 1) % 2
-        delay(0.001)
+        #delay(0.001)
         # enemy location set
         # 1. y == 384  y--
         # 2. x == 220  x++
@@ -472,19 +495,8 @@ class Tower3:
             self.image.clip_draw(self.frame * 36, 120, 36, 40, mouseXsave3[i], mouseYsave3[i])
 
 
-def enter():
-    global enemy1, enemy2, enemy3, grass, arrow, tower1, tower2, tower3
-    for i in range(0, 5):
-        enemy1[i] = Enemy1()
-    for i in range(0, 5):
-        enemy2[i] = Enemy2()
-    for i in range(0, 5):
-        enemy3[i] = Enemy3()
-    grass = Grass()
-    arrow = Arrow()
-    tower1 = Tower1()
-    tower2 = Tower2()
-    tower3 = Tower3()
+
+
 
 
 def exit():
@@ -563,9 +575,9 @@ def handle_events():
 time = 0
 
 def update():
-    global time
+    global time, first_time
     enemy1[0].update()
-    time += game_framework.frame_time
+    time = get_time() - first_time
     #print(time)
     if time >= 1:
         enemy1[1].update()
