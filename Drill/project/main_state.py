@@ -486,7 +486,6 @@ class Tower1:
         self.frame = 2#(self.frame + 1) % 1
         self.x[mouseNum1 - 1] = mouseXsave1[mouseNum1 - 1]
         self.y[mouseNum1 - 1] = mouseYsave1[mouseNum1 - 1]
-        print(self.x[mouseNum1 - 1], self.y[mouseNum1 - 1])
 
     def draw(self):
         for i in range(mouseNum1):
@@ -498,26 +497,36 @@ class Tower2:
     def __init__(self):
         self.image = load_image('turret1.png')
         self.frame = 0
+        self.x = [10000 for i in range(0, 30)]
+        self.y = [10000 for i in range(0, 30)]
 
     def update(self):
         self.frame = (self.frame + 1) % 1
+        self.x[mouseNum2 - 1] = mouseXsave2[mouseNum2 - 1]
+        self.y[mouseNum2 - 1] = mouseYsave2[mouseNum2 - 1]
 
     def draw(self):
         for i in range(mouseNum2):
             self.image.clip_draw(self.frame * 36, 200, 36, 40, mouseXsave2[i], mouseYsave2[i])
+            draw_rectangle(self.x[i] - 75, self.y[i] - 75, self.x[i] + 75, self.y[i] + 75)
 
 
 class Tower3:
     def __init__(self):
         self.image = load_image('turret1.png')
         self.frame = 0
+        self.x = [10000 for i in range(0, 30)]
+        self.y = [10000 for i in range(0, 30)]
 
     def update(self):
         self.frame = (self.frame + 1) % 1
+        self.x[mouseNum3 - 1] = mouseXsave3[mouseNum3 - 1]
+        self.y[mouseNum3 - 1] = mouseYsave3[mouseNum3 - 1]
 
     def draw(self):
         for i in range(mouseNum3):
             self.image.clip_draw(self.frame * 36, 120, 36, 40, mouseXsave3[i], mouseYsave3[i])
+            draw_rectangle(self.x[i] - 75, self.y[i] - 75, self.x[i] + 75, self.y[i] + 75)
 
 
 def exit():
