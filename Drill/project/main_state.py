@@ -10,6 +10,8 @@ import high_grade_pause_state
 
 name = "MainState"
 
+RUN_SPEED = 50
+
 enemy1 = [None for i in range(0, 5)]
 enemy2 = [None for i in range(0, 5)]
 enemy3 = [None for i in range(0, 5)]
@@ -104,91 +106,91 @@ class Enemy1:
         # 13. y == 0  y--
         if self.flag[0]:
             if self.y >= 384:
-                self.y -= 1 * game_framework.frame_time * 100
+                self.y -= 1 * game_framework.frame_time * RUN_SPEED
             else:
                 self.flag[0] = False
                 self.flag[1] = True
 
         if self.flag[1]:
             if self.x <= 220:
-                self.x += 1 * game_framework.frame_time * 100
+                self.x += 1 * game_framework.frame_time * RUN_SPEED
             else:
                 self.flag[1] = False
                 self.flag[2] = True
 
         if self.flag[2]:
             if self.y >= 256:
-                self.y -= 1 * game_framework.frame_time * 100
+                self.y -= 1 * game_framework.frame_time * RUN_SPEED
             else:
                 self.flag[2] = False
                 self.flag[3] = True
 
         if self.flag[3]:
             if self.x >= 100:
-                self.x -= 1 * game_framework.frame_time * 100
+                self.x -= 1 * game_framework.frame_time * RUN_SPEED
             else:
                 self.flag[3] = False
                 self.flag[4] = True
 
         if self.flag[4]:
             if self.y >= 114:
-                self.y -= 1 * game_framework.frame_time * 100
+                self.y -= 1 * game_framework.frame_time * RUN_SPEED
             else:
                 self.flag[4] = False
                 self.flag[5] = True
 
         if self.flag[5]:
             if self.x <= 333:
-                self.x += 1 * game_framework.frame_time * 100
+                self.x += 1 * game_framework.frame_time * RUN_SPEED
             else:
                 self.flag[5] = False
                 self.flag[6] = True
 
         if self.flag[6]:
             if self.y <= 512:
-                self.y += 1 * game_framework.frame_time * 100
+                self.y += 1 * game_framework.frame_time * RUN_SPEED
             else:
                 self.flag[6] = False
                 self.flag[7] = True
 
         if self.flag[7]:
             if self.x <= 580:
-                self.x += 1 * game_framework.frame_time * 100
+                self.x += 1 * game_framework.frame_time * RUN_SPEED
             else:
                 self.flag[7] = False
                 self.flag[8] = True
 
         if self.flag[8]:
             if self.y >= 384:
-                self.y -= 1 * game_framework.frame_time * 100
+                self.y -= 1 * game_framework.frame_time * RUN_SPEED
             else:
                 self.flag[8] = False
                 self.flag[9] = True
 
         if self.flag[9]:
             if self.x >= 456:
-                self.x -= 1 * game_framework.frame_time * 100
+                self.x -= 1 * game_framework.frame_time * RUN_SPEED
             else:
                 self.flag[9] = False
                 self.flag[10] = True
 
         if self.flag[10]:
             if self.y >= 248:
-                self.y -= 1 * game_framework.frame_time * 100
+                self.y -= 1 * game_framework.frame_time * RUN_SPEED
             else:
                 self.flag[10] = False
                 self.flag[11] = True
 
         if self.flag[11]:
             if self.x <= 564:
-                self.x += 1 * game_framework.frame_time * 100
+                self.x += 1 * game_framework.frame_time * RUN_SPEED
             else:
                 self.flag[11] = False
                 self.flag[12] = True
 
         if self.flag[12]:
             if self.y >= 0:
-                self.y -= 1 * game_framework.frame_time * 100
+                self.y -= 1 * game_framework.frame_time * RUN_SPEED
             else:
                 self.flag[12] = False
                 self.flag[0] = True
@@ -233,91 +235,91 @@ class Enemy2:
         # 13. y == 0  y--
         if self.flag[0]:
             if self.y >= 384:
-                self.y -= 1 * game_framework.frame_time * 100
+                self.y -= 1 * game_framework.frame_time * RUN_SPEED
             else:
                 self.flag[0] = False
                 self.flag[1] = True
 
         if self.flag[1]:
             if self.x <= 220:
-                self.x += 1 * game_framework.frame_time * 100
+                self.x += 1 * game_framework.frame_time * RUN_SPEED
             else:
                 self.flag[1] = False
                 self.flag[2] = True
 
         if self.flag[2]:
             if self.y >= 256:
-                self.y -= 1 * game_framework.frame_time * 100
+                self.y -= 1 * game_framework.frame_time * RUN_SPEED
             else:
                 self.flag[2] = False
                 self.flag[3] = True
 
         if self.flag[3]:
             if self.x >= 100:
-                self.x -= 1 * game_framework.frame_time * 100
+                self.x -= 1 * game_framework.frame_time * RUN_SPEED
             else:
                 self.flag[3] = False
                 self.flag[4] = True
 
         if self.flag[4]:
             if self.y >= 114:
-                self.y -= 1 * game_framework.frame_time * 100
+                self.y -= 1 * game_framework.frame_time * RUN_SPEED
             else:
                 self.flag[4] = False
                 self.flag[5] = True
 
         if self.flag[5]:
             if self.x <= 333:
-                self.x += 1 * game_framework.frame_time * 100
+                self.x += 1 * game_framework.frame_time * RUN_SPEED
             else:
                 self.flag[5] = False
                 self.flag[6] = True
 
         if self.flag[6]:
             if self.y <= 512:
-                self.y += 1 * game_framework.frame_time * 100
+                self.y += 1 * game_framework.frame_time * RUN_SPEED
             else:
                 self.flag[6] = False
                 self.flag[7] = True
 
         if self.flag[7]:
             if self.x <= 580:
-                self.x += 1 * game_framework.frame_time * 100
+                self.x += 1 * game_framework.frame_time * RUN_SPEED
             else:
                 self.flag[7] = False
                 self.flag[8] = True
 
         if self.flag[8]:
             if self.y >= 384:
-                self.y -= 1 * game_framework.frame_time * 100
+                self.y -= 1 * game_framework.frame_time * RUN_SPEED
             else:
                 self.flag[8] = False
                 self.flag[9] = True
 
         if self.flag[9]:
             if self.x >= 456:
-                self.x -= 1 * game_framework.frame_time * 100
+                self.x -= 1 * game_framework.frame_time * RUN_SPEED
             else:
                 self.flag[9] = False
                 self.flag[10] = True
 
         if self.flag[10]:
             if self.y >= 248:
-                self.y -= 1 * game_framework.frame_time * 100
+                self.y -= 1 * game_framework.frame_time * RUN_SPEED
             else:
                 self.flag[10] = False
                 self.flag[11] = True
 
         if self.flag[11]:
             if self.x <= 564:
-                self.x += 1 * game_framework.frame_time * 100
+                self.x += 1 * game_framework.frame_time * RUN_SPEED
             else:
                 self.flag[11] = False
                 self.flag[12] = True
 
         if self.flag[12]:
             if self.y >= 0:
-                self.y -= 1 * game_framework.frame_time * 100
+                self.y -= 1 * game_framework.frame_time * RUN_SPEED
             else:
                 self.flag[12] = False
                 self.flag[0] = True
@@ -363,91 +365,91 @@ class Enemy3:
         # 13. y == 0  y--
         if self.flag[0]:
             if self.y >= 384:
-                self.y -= 1 * game_framework.frame_time * 100
+                self.y -= 1 * game_framework.frame_time * RUN_SPEED
             else:
                 self.flag[0] = False
                 self.flag[1] = True
 
         if self.flag[1]:
             if self.x <= 220:
-                self.x += 1 * game_framework.frame_time * 100
+                self.x += 1 * game_framework.frame_time * RUN_SPEED
             else:
                 self.flag[1] = False
                 self.flag[2] = True
 
         if self.flag[2]:
             if self.y >= 256:
-                self.y -= 1 * game_framework.frame_time * 100
+                self.y -= 1 * game_framework.frame_time * RUN_SPEED
             else:
                 self.flag[2] = False
                 self.flag[3] = True
 
         if self.flag[3]:
             if self.x >= 100:
-                self.x -= 1 * game_framework.frame_time * 100
+                self.x -= 1 * game_framework.frame_time * RUN_SPEED
             else:
                 self.flag[3] = False
                 self.flag[4] = True
 
         if self.flag[4]:
             if self.y >= 114:
-                self.y -= 1 * game_framework.frame_time * 100
+                self.y -= 1 * game_framework.frame_time * RUN_SPEED
             else:
                 self.flag[4] = False
                 self.flag[5] = True
 
         if self.flag[5]:
             if self.x <= 333:
-                self.x += 1 * game_framework.frame_time * 100
+                self.x += 1 * game_framework.frame_time * RUN_SPEED
             else:
                 self.flag[5] = False
                 self.flag[6] = True
 
         if self.flag[6]:
             if self.y <= 512:
-                self.y += 1 * game_framework.frame_time * 100
+                self.y += 1 * game_framework.frame_time * RUN_SPEED
             else:
                 self.flag[6] = False
                 self.flag[7] = True
 
         if self.flag[7]:
             if self.x <= 580:
-                self.x += 1 * game_framework.frame_time * 100
+                self.x += 1 * game_framework.frame_time * RUN_SPEED
             else:
                 self.flag[7] = False
                 self.flag[8] = True
 
         if self.flag[8]:
             if self.y >= 384:
-                self.y -= 1 * game_framework.frame_time * 100
+                self.y -= 1 * game_framework.frame_time * RUN_SPEED
             else:
                 self.flag[8] = False
                 self.flag[9] = True
 
         if self.flag[9]:
             if self.x >= 456:
-                self.x -= 1 * game_framework.frame_time * 100
+                self.x -= 1 * game_framework.frame_time * RUN_SPEED
             else:
                 self.flag[9] = False
                 self.flag[10] = True
 
         if self.flag[10]:
             if self.y >= 248:
-                self.y -= 1 * game_framework.frame_time * 100
+                self.y -= 1 * game_framework.frame_time * RUN_SPEED
             else:
                 self.flag[10] = False
                 self.flag[11] = True
 
         if self.flag[11]:
             if self.x <= 564:
-                self.x += 1 * game_framework.frame_time * 100
+                self.x += 1 * game_framework.frame_time * RUN_SPEED
             else:
                 self.flag[11] = False
                 self.flag[12] = True
 
         if self.flag[12]:
             if self.y >= 0:
-                self.y -= 1 * game_framework.frame_time * 100
+                self.y -= 1 * game_framework.frame_time * RUN_SPEED
             else:
                 self.flag[12] = False
                 self.flag[0] = True
@@ -469,22 +471,27 @@ class Arrow:
 
 
 class Tower1:
-    global mouseXsave1, mouseYsave1, mouseNum1
 
     def __init__(self):
         self.image = load_image('turret5.png')
         self.frame = 0
+        self.x = [10000 for i in range(0, 30)]
+        self.y = [10000 for i in range(0, 30)]
 
-    #def get_bb(self):
-    #    return self.x - 50, self.y - 50, self.x + 50, self.y + 50
+    def get_bb(self):
+        return self.x[mouseNum1 - 1] - 50, self.y[mouseNum1 - 1] - 50,\
+               self.x[mouseNum1 - 1] + 50, self.y[mouseNum1 - 1] + 50
 
     def update(self):
         self.frame = 2#(self.frame + 1) % 1
+        self.x[mouseNum1 - 1] = mouseXsave1[mouseNum1 - 1]
+        self.y[mouseNum1 - 1] = mouseYsave1[mouseNum1 - 1]
+        print(self.x[mouseNum1 - 1], self.y[mouseNum1 - 1])
 
     def draw(self):
         for i in range(mouseNum1):
             self.image.clip_draw(self.frame * 32, 0, 32, 32, mouseXsave1[i], mouseYsave1[i])
-            #draw_rectangle(mouseXsave1[i] - 50, mouseYsave1[i] - 50, mouseXsave1[i] + 50, mouseYsave1 + 50)
+            draw_rectangle(self.x[i] - 75, self.y[i] - 75, self.x[i] + 75, self.y[i] + 75)
 
 
 class Tower2:
@@ -554,25 +561,22 @@ def handle_events():
                     if 175 <= event.y:
                         if event.y <= 245:
                             mouseFlag1[mouseNum1] = True
-                            print(mouseXsave1[mouseNum1], mouseYsave1[mouseNum1])
             if 718 <= event.x:
                 if event.x <= 770:
                     if 175 <= event.y:
                         if event.y <= 245:
                             mouseFlag2[mouseNum2] = True
-                            print(mouseXsave2[mouseNum2], mouseYsave2[mouseNum2])
             if 782 <= event.x:
                 if event.x <= 830:
                     if 175 <= event.y:
                         if event.y <= 245:
                             mouseFlag3[mouseNum3] = True
-                            print(mouseXsave3[mouseNum3], mouseYsave3[mouseNum3])
 
 
         elif event.type == SDL_MOUSEBUTTONUP:
             if mouseFlag1[mouseNum1]:
                 mouseXsave1[mouseNum1], mouseYsave1[mouseNum1] = event.x, 640 - 1 - event.y
-                print(mouseXsave1, mouseYsave1)
+                print(mouseXsave1[mouseNum1], mouseYsave1[mouseNum1])
                 mouseNum1 += 1
             elif mouseFlag2[mouseNum2]:
                 mouseXsave2[mouseNum2], mouseYsave2[mouseNum2] = event.x, 640 - 1 - event.y
@@ -662,6 +666,7 @@ def draw():
     if time >= 14:
         enemy3[4].draw()
     arrow.draw()
+
     tower1.draw()
     tower2.draw()
     tower3.draw()
