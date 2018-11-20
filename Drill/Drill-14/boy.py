@@ -124,12 +124,14 @@ class Boy:
         self.event_que = []
         self.cur_state = WalkingState
         self.cur_state.enter(self, None)
+        self.eat_num = 0
 
         self.eat_sound = load_wav('pickup.wav')
         self.eat_sound.set_volume(32)
 
     def eat(self, ball):
         self.eat_sound.play()
+        self.eat_num += 1
 
     def get_bb(self):
         return self.x - self.bg.window_left - 25, self.y - self.bg.window_bottom - 40,\
@@ -155,6 +157,9 @@ class Boy:
         self.cur_state.draw(self)
         self.font.draw(self.x - self.bg.window_left - 60, self.y - self.bg.window_bottom + 60, '(%5d, %5d)' % (self.x, self.y),
                        (255, 255, 0))
+        self.font.draw(self.x - self.bg.window_left - 60, self.y - self.bg.window_bottom + 80,
+                       'eat : (%5d)' % self.eat_num,
+                       (255, 0, 0))
         draw_rectangle(*self.get_bb())
         debug_print('Velocity :' + str(self.velocity) + '  Dir:' + str(self.dir) + ' Frame Time:' + str(
             game_framework.frame_time))
