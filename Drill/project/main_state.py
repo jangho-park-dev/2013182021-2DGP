@@ -78,12 +78,15 @@ class Enemy1:
         self.timer = 0
         self.FRT = 0
 
+    def get_bb(self):
+        return self.x - 20, self.y - 25, self.x + 20, self.y + 25
+
     def update(self):
         self.frame = (self.frame + 1) % 2
         #delay(0.001)
         self.timer = get_time()
         self.FRT = self.timer - self.time
-        print(self.FRT)
+        #print(self.FRT)
         self.time = self.timer
         # enemy location set
         # 1. y == 384  y--
@@ -194,6 +197,7 @@ class Enemy1:
 
     def draw(self):
         self.image.clip_draw(self.frame * 40, 0, 40, 50, self.x, self.y)
+        draw_rectangle(*self.get_bb())
 
 
 class Enemy2:
@@ -206,6 +210,9 @@ class Enemy2:
             Enemy2.image = load_image('Monsters.png')
         self.flag = [False for i in range(0, 14)]
         self.flag[0] = True
+
+    def get_bb(self):
+        return self.x - 20, self.y - 10, self.x + 10, self.y + 25
 
     def update(self):
         self.frame = (self.frame + 1) % 2
@@ -320,6 +327,7 @@ class Enemy2:
 
     def draw(self):
         self.image.clip_draw(self.frame * 40, 560, 40, 50, self.x, self.y)
+        draw_rectangle(*self.get_bb())
 
 
 class Enemy3:
@@ -332,6 +340,9 @@ class Enemy3:
             Enemy3.image = load_image('Monsters.png')
         self.flag = [False for i in range(0, 14)]
         self.flag[0] = True
+
+    def get_bb(self):
+        return self.x - 20, self.y - 15, self.x + 10, self.y + 15
 
     def update(self):
         self.frame = (self.frame + 1) % 2
@@ -446,6 +457,7 @@ class Enemy3:
 
     def draw(self):
         self.image.clip_draw(self.frame * 40, 310, 40, 50, self.x, self.y)
+        draw_rectangle(*self.get_bb())
 
 
 class Arrow:
@@ -457,9 +469,14 @@ class Arrow:
 
 
 class Tower1:
+    global mouseXsave1, mouseYsave1, mouseNum1
+
     def __init__(self):
         self.image = load_image('turret5.png')
         self.frame = 0
+
+    #def get_bb(self):
+    #    return self.x - 50, self.y - 50, self.x + 50, self.y + 50
 
     def update(self):
         self.frame = 2#(self.frame + 1) % 1
@@ -467,6 +484,7 @@ class Tower1:
     def draw(self):
         for i in range(mouseNum1):
             self.image.clip_draw(self.frame * 32, 0, 32, 32, mouseXsave1[i], mouseYsave1[i])
+            #draw_rectangle(mouseXsave1[i] - 50, mouseYsave1[i] - 50, mouseXsave1[i] + 50, mouseYsave1 + 50)
 
 
 class Tower2:
@@ -493,10 +511,6 @@ class Tower3:
     def draw(self):
         for i in range(mouseNum3):
             self.image.clip_draw(self.frame * 36, 120, 36, 40, mouseXsave3[i], mouseYsave3[i])
-
-
-
-
 
 
 def exit():
