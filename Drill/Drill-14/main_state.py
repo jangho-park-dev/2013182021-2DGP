@@ -48,6 +48,8 @@ def enter():
     balls = [Ball() for i in range(100)]
     game_world.add_objects(balls, 1)
 
+    for ball in balls:
+        ball.set_background(background)
 
 
 def exit():
