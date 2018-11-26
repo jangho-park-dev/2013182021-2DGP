@@ -571,16 +571,55 @@ class Bullet:
     def __init__(self):
         self.image = load_image('bullet.png')
         self.frame = 0
-        self.x = mouseXsave1[bulletNum1]
-        self.y = mouseYsave1[bulletNum1]
+        self.x = 0
+        self.y = 0
+        self.enemy_x = [0 for i in range(5)]
+        self.enemy_y = [0 for i in range(5)]
+        self.num = 1
+
+    def get_bb(self):
+        return self.x - 7, self.y - 7, self.x + 7, self.y + 7
+
+    def setEnemyList(self, enemy1):
+        for i in range(0, 5):
+            self.enemy_x[i] = enemy1[i].x
+            self.enemy_y[i] = enemy1[i].y
+
+    def collide(self):
+        left_a, bottom_a, right_a, top_a = self.get_bb()
+
+        for i in range(5):
+            if left_a > self.enemy_x[i] + 20: return False
+            if right_a < self.enemy_x[i] - 20: return False
+            if top_a < self.enemy_y[i] - 25: return False
+            if bottom_a > self.enemy_y[i] + 25: return False
+
+        return True
 
     def update(self):
         self.frame = (self.frame + 1) % 1
         self.x = mouseXsave1[bulletNum1]
         self.y = mouseYsave1[bulletNum1]
+        self.setEnemyList(enemy1)
+
+        for i in range(0, 5):
+            if self.enemy_x[i] < self.x:
+                self.x -= self.num
+                self.num += 0.05
+
+            if self.enemy_y[i] > self.y:
+                self.y += self.num
+                self.num += 0.05
+
+        if self.collide():
+            print('dd')
+            self.x = mouseXsave1[bulletNum1]
+            self.y = mouseYsave1[bulletNum1]
 
     def draw(self):
+        draw_rectangle(*self.get_bb())
         self.image.clip_draw(160, 180, 14, 14, self.x, self.y)
+
 
 def exit():
     global enemy1, enemy2, enemy3, tower1, tower2, tower3, grass
@@ -653,8 +692,16 @@ def handle_events():
                 pass
 
 
+def collide(a, b):
+    left_a, bottom_a, right_a, top_a = a.get_bb()
+    left_b, bottom_b, right_b, top_b = b.get_bb()
 
+    if left_a > right_b: return False
+    if right_a < left_b: return False
+    if top_a < bottom_a: return False
+    if bottom_a > top_b: return False
 
+    return True
 
 time = 0
 
