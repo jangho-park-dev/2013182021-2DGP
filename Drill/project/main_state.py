@@ -585,22 +585,21 @@ class Bullet:
             self.enemy_x[i] = enemy1[i].x
             self.enemy_y[i] = enemy1[i].y
 
-    def collide(self):
+    def collide_1(self):
         left_a, bottom_a, right_a, top_a = self.get_bb()
 
-        for i in range(5):
-            if left_a > self.enemy_x[i] + 20: return False
-            if right_a < self.enemy_x[i] - 20: return False
-            if top_a < self.enemy_y[i] - 25: return False
-            if bottom_a > self.enemy_y[i] + 25: return False
+        if left_a > self.enemy_x[0] + 20: return False
+        if right_a < self.enemy_x[0] - 20: return False
+        if top_a < self.enemy_y[0] - 25: return False
+        if bottom_a > self.enemy_y[0] + 25: return False
 
         return True
 
     def update(self):
         self.frame = (self.frame + 1) % 1
+        self.setEnemyList(enemy1)
         self.x = mouseXsave1[bulletNum1]
         self.y = mouseYsave1[bulletNum1]
-        self.setEnemyList(enemy1)
 
         for i in range(0, 5):
             if self.enemy_x[i] < self.x:
@@ -611,10 +610,10 @@ class Bullet:
                 self.y += self.num
                 self.num += 0.05
 
-        if self.collide():
-            print('dd')
+        if self.collide_1():
             self.x = mouseXsave1[bulletNum1]
             self.y = mouseYsave1[bulletNum1]
+            self.num = 1
 
     def draw(self):
         draw_rectangle(*self.get_bb())
