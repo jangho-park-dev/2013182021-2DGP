@@ -15,6 +15,8 @@ RUN_SPEED = 50
 enemy1 = [None for i in range(0, 5)]
 enemy2 = [None for i in range(0, 5)]
 enemy3 = [None for i in range(0, 5)]
+bullet = None
+bulletNum1 = 0
 
 grass = None
 arrow = None
@@ -43,7 +45,7 @@ mouseX, mouseY = 0, 0
 
 
 def enter():
-    global enemy1, enemy2, enemy3, grass, arrow, tower1, tower2, tower3, first_time
+    global enemy1, enemy2, enemy3, grass, arrow, tower1, tower2, tower3, first_time, bullet
     for i in range(0, 5):
         enemy1[i] = Enemy1()
     for i in range(0, 5):
@@ -55,6 +57,7 @@ def enter():
     tower1 = Tower1()
     tower2 = Tower2()
     tower3 = Tower3()
+    bullet = Bullet()
     first_time = get_time()
 
 
@@ -562,6 +565,23 @@ class Tower3:
             draw_rectangle(self.x[i] - 75, self.y[i] - 75, self.x[i] + 75, self.y[i] + 75)
 
 
+class Bullet:
+    global bulletNum1
+
+    def __init__(self):
+        self.image = load_image('bullet.png')
+        self.frame = 0
+        self.x = mouseXsave1[bulletNum1]
+        self.y = mouseYsave1[bulletNum1]
+
+    def update(self):
+        self.frame = (self.frame + 1) % 1
+        self.x = mouseXsave1[bulletNum1]
+        self.y = mouseYsave1[bulletNum1]
+
+    def draw(self):
+        self.image.clip_draw(160, 180, 14, 14, self.x, self.y)
+
 def exit():
     global enemy1, enemy2, enemy3, tower1, tower2, tower3, grass
     for i in range(0, 5):
@@ -640,13 +660,13 @@ time = 0
 
 
 def update():
-    global time, first_time
+    global time, first_time, bulletNum1
     enemy1[0].update()
     time = get_time() - first_time
 
     for i in range(5):
         if enemy1[i].collide():
-            print("cld")
+            bullet.update()
 
     if time >= 1:
         enemy1[1].update()
@@ -687,6 +707,8 @@ def draw():
     global time
     clear_canvas()
     grass.draw()
+
+
     enemy1[0].draw()
     if time >= 1:
         enemy1[1].draw()
@@ -721,6 +743,12 @@ def draw():
     tower1.draw()
     tower2.draw()
     tower3.draw()
+
+
+    for i in range(5):
+        if enemy1[i].collide():
+            bullet.draw()
+
     update_canvas()
 
 
