@@ -595,20 +595,69 @@ class Bullet:
 
         return True
 
+    def collide_2(self):
+        left_a, bottom_a, right_a, top_a = self.get_bb()
+
+        if left_a > self.enemy_x[1] + 20: return False
+        if right_a < self.enemy_x[1] - 20: return False
+        if top_a < self.enemy_y[1] - 25: return False
+        if bottom_a > self.enemy_y[1] + 25: return False
+
+        return True
+
+    def collide_3(self):
+        left_a, bottom_a, right_a, top_a = self.get_bb()
+
+        if left_a > self.enemy_x[2] + 20: return False
+        if right_a < self.enemy_x[2] - 20: return False
+        if top_a < self.enemy_y[2] - 25: return False
+        if bottom_a > self.enemy_y[2] + 25: return False
+
+        return True
+
+    def collide_4(self):
+        left_a, bottom_a, right_a, top_a = self.get_bb()
+
+        if left_a > self.enemy_x[3] + 20: return False
+        if right_a < self.enemy_x[3] - 20: return False
+        if top_a < self.enemy_y[3] - 25: return False
+        if bottom_a > self.enemy_y[3] + 25: return False
+
+        return True
+
+    def collide_5(self):
+        left_a, bottom_a, right_a, top_a = self.get_bb()
+
+        if left_a > self.enemy_x[4] + 20: return False
+        if right_a < self.enemy_x[4] - 20: return False
+        if top_a < self.enemy_y[4] - 25: return False
+        if bottom_a > self.enemy_y[4] + 25: return False
+
+        return True
+
     def update(self):
         self.frame = (self.frame + 1) % 1
         self.setEnemyList(enemy1)
         self.x = mouseXsave1[bulletNum1]
         self.y = mouseYsave1[bulletNum1]
 
+        self.num += 1
+
         for i in range(0, 5):
             if self.enemy_x[i] < self.x:
-                self.x -= self.num
-                self.num += 0.05
-
-            if self.enemy_y[i] > self.y:
-                self.y += self.num
-                self.num += 0.05
+                if self.enemy_y[i] > self.y:
+                    self.x -= self.num
+                    self.y += self.num
+                elif self.enemy_y[i] > self.y:
+                    self.x -= self.num
+                    self.y -= self.num
+            if self.enemy_x[i] > self.x:
+                if self.enemy_y[i] > self.y:
+                    self.x += self.num
+                    self.y += self.num
+                elif self.enemy_y[i] > self.y:
+                    self.x += self.num
+                    self.y -= self.num
 
         if self.collide_1():
             self.x = mouseXsave1[bulletNum1]
