@@ -489,7 +489,7 @@ class Tower1:
 
     def draw(self):
         for i in range(mouseNum1):
-            self.image.clip_draw(self.frame * 32, 0, 32, 32, mouseXsave1[i], mouseYsave1[i])
+            self.image.clip_draw(self.frame * 32, 0, 32, 32, self.x[i], self.y[i])
             draw_rectangle(self.x[i] - 75, self.y[i] - 75, self.x[i] + 75, self.y[i] + 75)
 
 
