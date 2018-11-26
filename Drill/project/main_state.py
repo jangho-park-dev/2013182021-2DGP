@@ -61,9 +61,11 @@ def enter():
 class Grass:
     def __init__(self):
         self.image = load_image('Track2B.png')
+        self.font = load_font('ENCR10B.TTF', 16)
 
     def draw(self):
         self.image.draw(480, 320)
+        self.font.draw(50, 550, '(Time: %3.2f)' % get_time(), (255, 255, 0))
 
 
 class Enemy1:
@@ -82,6 +84,19 @@ class Enemy1:
 
     def get_bb(self):
         return self.x - 20, self.y - 25, self.x + 20, self.y + 25
+
+    def collide(self):
+        if mouseNum1 == 0:
+            return False
+        left_a, bottom_a, right_a, top_a = self.get_bb()
+
+        for i in range(mouseNum1):
+            if left_a > mouseXsave1[i] + 75: return False
+            if right_a < mouseXsave1[i] - 75: return False
+            if top_a < mouseYsave1[i] - 75: return False
+            if bottom_a > mouseYsave1[i] + 75: return False
+
+        return True
 
     def update(self):
         self.frame = (self.frame + 1) % 2
@@ -216,6 +231,17 @@ class Enemy2:
     def get_bb(self):
         return self.x - 20, self.y - 10, self.x + 10, self.y + 25
 
+    def collide(self):
+        if mouseNum2 == 0:
+            return False
+        left_a, bottom_a, right_a, top_a = self.get_bb()
+
+        for i in range(mouseNum2):
+            if left_a > mouseXsave2[i] + 75: return False
+            if right_a < mouseXsave2[i] - 75: return False
+            if top_a < mouseYsave2[i] - 75: return False
+            if bottom_a > mouseYsave2[i] + 75: return False
+
     def update(self):
         self.frame = (self.frame + 1) % 2
         #delay(0.001)
@@ -345,6 +371,17 @@ class Enemy3:
 
     def get_bb(self):
         return self.x - 20, self.y - 15, self.x + 10, self.y + 15
+
+    def collide(self):
+        if mouseNum3 == 0:
+            return False
+        left_a, bottom_a, right_a, top_a = self.get_bb()
+
+        for i in range(mouseNum3):
+            if left_a > mouseXsave3[i] + 75: return False
+            if right_a < mouseXsave3[i] - 75: return False
+            if top_a < mouseYsave3[i] - 75: return False
+            if bottom_a > mouseYsave3[i] + 75: return False
 
     def update(self):
         self.frame = (self.frame + 1) % 2
@@ -478,10 +515,6 @@ class Tower1:
         self.x = [10000 for i in range(0, 30)]
         self.y = [10000 for i in range(0, 30)]
 
-    def get_bb(self):
-        return self.x[mouseNum1 - 1] - 50, self.y[mouseNum1 - 1] - 50,\
-               self.x[mouseNum1 - 1] + 50, self.y[mouseNum1 - 1] + 50
-
     def update(self):
         self.frame = 2#(self.frame + 1) % 1
         self.x[mouseNum1 - 1] = mouseXsave1[mouseNum1 - 1]
@@ -553,7 +586,8 @@ def resume():
 
 def handle_events():
     global mouseX, mouseY, mouseXsave1, mouseYsave1, mouseFlag1, mouseNum1
-    global mouseXsave2, mouseYsave2, mouseFlag2, mouseNum2, mouseXsave3, mouseYsave3, mouseFlag3, mouseNum3
+    global mouseXsave2, mouseYsave2, mouseFlag2, mouseNum2
+    global mouseXsave3, mouseYsave3, mouseFlag3, mouseNum3
     events = get_events()
     for event in events:
         if event.type == SDL_QUIT:
@@ -599,13 +633,21 @@ def handle_events():
                 pass
 
 
+
+
+
 time = 0
+
 
 def update():
     global time, first_time
     enemy1[0].update()
     time = get_time() - first_time
-    #print(time)
+
+    for i in range(5):
+        if enemy1[i].collide():
+            print("cld")
+
     if time >= 1:
         enemy1[1].update()
     if time >= 2:
