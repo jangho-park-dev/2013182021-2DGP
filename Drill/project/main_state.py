@@ -575,7 +575,10 @@ class Bullet:
         self.y = 0
         self.enemy_x = [0 for i in range(5)]
         self.enemy_y = [0 for i in range(5)]
-        self.num = 1
+        self.flag1 = 1
+        self.dir = 0
+        self.speed = 0
+        self.time = 0
 
     def get_bb(self):
         return self.x - 7, self.y - 7, self.x + 7, self.y + 7
@@ -638,31 +641,23 @@ class Bullet:
     def update(self):
         self.frame = (self.frame + 1) % 1
         self.setEnemyList(enemy1)
-        self.x = mouseXsave1[bulletNum1]
-        self.y = mouseYsave1[bulletNum1]
 
-        self.num += 1
+        if self.flag1:
+            self.x = mouseXsave1[bulletNum1]
+            self.y = mouseYsave1[bulletNum1]
+            self.flag1 = 0
 
-        for i in range(0, 5):
-            if self.enemy_x[i] < self.x:
-                if self.enemy_y[i] > self.y:
-                    self.x -= self.num
-                    self.y += self.num
-                elif self.enemy_y[i] > self.y:
-                    self.x -= self.num
-                    self.y -= self.num
-            if self.enemy_x[i] > self.x:
-                if self.enemy_y[i] > self.y:
-                    self.x += self.num
-                    self.y += self.num
-                elif self.enemy_y[i] > self.y:
-                    self.x += self.num
-                    self.y -= self.num
+        self.dir = math.atan2(self.enemy_y[0] - self.y, self.enemy_x[0] - self.x)
+        self.speed = 48
+
+        self.time = game_framework.frame_time
+        print(self.time)
+        self.x += self.speed * math.cos(self.dir) * game_framework.frame_time
+        self.y += self.speed * math.sin(self.dir) * game_framework.frame_time
 
         if self.collide_1():
             self.x = mouseXsave1[bulletNum1]
             self.y = mouseYsave1[bulletNum1]
-            self.num = 1
 
     def draw(self):
         draw_rectangle(*self.get_bb())
