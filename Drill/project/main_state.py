@@ -12,9 +12,9 @@ name = "MainState"
 
 RUN_SPEED = 50
 
-enemy1 = [None for i in range(0, 5)]
-enemy2 = [None for i in range(0, 5)]
-enemy3 = [None for i in range(0, 5)]
+enemy1 = [None for i in range(0, 20)]
+enemy2 = [None for i in range(0, 20)]
+enemy3 = [None for i in range(0, 20)]
 bullet = None
 bulletNum1 = 0
 
@@ -46,11 +46,11 @@ mouseX, mouseY = 0, 0
 
 def enter():
     global enemy1, enemy2, enemy3, grass, arrow, tower1, tower2, tower3, first_time, bullet
-    for i in range(0, 5):
+    for i in range(0, 20):
         enemy1[i] = Enemy1()
-    for i in range(0, 5):
+    for i in range(0, 20):
         enemy2[i] = Enemy2()
-    for i in range(0, 5):
+    for i in range(0, 20):
         enemy3[i] = Enemy3()
     grass = Grass()
     arrow = Arrow()
@@ -579,6 +579,7 @@ class Bullet:
         self.dir = 0
         self.speed = 0
         self.time = 0
+        self.cld1 = 0
 
     def get_bb(self):
         return self.x - 7, self.y - 7, self.x + 7, self.y + 7
@@ -591,10 +592,58 @@ class Bullet:
     def collide_1(self):
         left_a, bottom_a, right_a, top_a = self.get_bb()
 
-        if left_a > self.enemy_x[0] + 20: return False
-        if right_a < self.enemy_x[0] - 20: return False
-        if top_a < self.enemy_y[0] - 25: return False
-        if bottom_a > self.enemy_y[0] + 25: return False
+        if self.cld1 == 0:
+            if left_a > self.enemy_x[0] + 20: return False
+            if right_a < self.enemy_x[0] - 20: return False
+            if top_a < self.enemy_y[0] - 25: return False
+            if bottom_a > self.enemy_y[0] + 25: return False
+            print('d')
+        if self.cld1 == 1:
+            if left_a > self.enemy_x[1] + 20: return False
+            if right_a < self.enemy_x[1] - 20: return False
+            if top_a < self.enemy_y[1] - 25: return False
+            if bottom_a > self.enemy_y[1] + 25: return False
+            print('d')
+        if self.cld1 == 2:
+            if left_a > self.enemy_x[2] + 20: return False
+            if right_a < self.enemy_x[2] - 20: return False
+            if top_a < self.enemy_y[2] - 25: return False
+            if bottom_a > self.enemy_y[2] + 25: return False
+        if self.cld1 == 3:
+            if left_a > self.enemy_x[3] + 20: return False
+            if right_a < self.enemy_x[3] - 20: return False
+            if top_a < self.enemy_y[3] - 25: return False
+            if bottom_a > self.enemy_y[3] + 25: return False
+        if self.cld1 == 4:
+            if left_a > self.enemy_x[4] + 20: return False
+            if right_a < self.enemy_x[4] - 20: return False
+            if top_a < self.enemy_y[4] - 25: return False
+            if bottom_a > self.enemy_y[4] + 25: return False
+        if self.cld1 == 5:
+            if left_a > self.enemy_x[5] + 20: return False
+            if right_a < self.enemy_x[5] - 20: return False
+            if top_a < self.enemy_y[5] - 25: return False
+            if bottom_a > self.enemy_y[5] + 25: return False
+        if self.cld1 == 6:
+            if left_a > self.enemy_x[6] + 20: return False
+            if right_a < self.enemy_x[6] - 20: return False
+            if top_a < self.enemy_y[6] - 25: return False
+            if bottom_a > self.enemy_y[6] + 25: return False
+        if self.cld1 == 7:
+            if left_a > self.enemy_x[7] + 20: return False
+            if right_a < self.enemy_x[7] - 20: return False
+            if top_a < self.enemy_y[7] - 25: return False
+            if bottom_a > self.enemy_y[7] + 25: return False
+        if self.cld1 == 8:
+            if left_a > self.enemy_x[8] + 20: return False
+            if right_a < self.enemy_x[8] - 20: return False
+            if top_a < self.enemy_y[8] - 25: return False
+            if bottom_a > self.enemy_y[8] + 25: return False
+        if self.cld1 == 9:
+            if left_a > self.enemy_x[9] + 20: return False
+            if right_a < self.enemy_x[9] - 20: return False
+            if top_a < self.enemy_y[9] - 25: return False
+            if bottom_a > self.enemy_y[9] + 25: return False
 
         return True
 
@@ -647,17 +696,95 @@ class Bullet:
             self.y = mouseYsave1[bulletNum1]
             self.flag1 = 0
 
-        self.dir = math.atan2(self.enemy_y[0] - self.y, self.enemy_x[0] - self.x)
         self.speed = 48
 
+        if self.cld1 == 0:
+            self.dir = math.atan2(self.enemy_y[0] - self.y, self.enemy_x[0] - self.x)
+        if self.cld1 == 1:
+            self.dir = math.atan2(self.enemy_y[1] - self.y, self.enemy_x[1] - self.x)
+        if self.cld1 == 2:
+            self.dir = math.atan2(self.enemy_y[2] - self.y, self.enemy_x[2] - self.x)
+        if self.cld1 == 3:
+            self.dir = math.atan2(self.enemy_y[3] - self.y, self.enemy_x[3] - self.x)
+        if self.cld1 == 4:
+            self.dir = math.atan2(self.enemy_y[4] - self.y, self.enemy_x[4] - self.x)
+        if self.cld1 == 5:
+            self.dir = math.atan2(self.enemy_y[5] - self.y, self.enemy_x[5] - self.x)
+        if self.cld1 == 6:
+            self.dir = math.atan2(self.enemy_y[6] - self.y, self.enemy_x[6] - self.x)
+        if self.cld1 == 7:
+            self.dir = math.atan2(self.enemy_y[7] - self.y, self.enemy_x[7] - self.x)
+        if self.cld1 == 8:
+            self.dir = math.atan2(self.enemy_y[8] - self.y, self.enemy_x[8] - self.x)
+        if self.cld1 == 9:
+            self.dir = math.atan2(self.enemy_y[9] - self.y, self.enemy_x[9] - self.x)
+
         self.time = game_framework.frame_time
-        print(self.time)
+        #print(self.time)
         self.x += self.speed * math.cos(self.dir) * game_framework.frame_time
         self.y += self.speed * math.sin(self.dir) * game_framework.frame_time
 
         if self.collide_1():
-            self.x = mouseXsave1[bulletNum1]
-            self.y = mouseYsave1[bulletNum1]
+            if self.cld1 == 0:
+                self.x = mouseXsave1[0]
+                self.y = mouseYsave1[0]
+                enemy1[0].x = -1000
+                enemy1[0].y = -1000
+                self.cld1 = 1
+            elif self.cld1 == 1:
+                self.x = mouseXsave1[0]
+                self.y = mouseYsave1[0]
+                enemy1[1].x = -1000
+                enemy1[1].y = -1000
+                self.cld1 = 2
+            elif self.cld1 == 2:
+                self.x = mouseXsave1[0]
+                self.y = mouseYsave1[0]
+                enemy1[2].x = -1000
+                enemy1[2].y = -1000
+                self.cld1 = 3
+            elif self.cld1 == 3:
+                self.x = mouseXsave1[0]
+                self.y = mouseYsave1[0]
+                enemy1[3].x = -1000
+                enemy1[3].y = -1000
+                self.cld1 = 4
+            elif self.cld1 == 4:
+                self.x = mouseXsave1[0]
+                self.y = mouseYsave1[0]
+                enemy1[4].x = -1000
+                enemy1[4].y = -1000
+                self.cld1 = 5
+            elif self.cld1 == 5:
+                self.x = mouseXsave1[0]
+                self.y = mouseYsave1[0]
+                enemy1[5].x = -1000
+                enemy1[5].y = -1000
+                self.cld1 = 6
+            elif self.cld1 == 6:
+                self.x = mouseXsave1[0]
+                self.y = mouseYsave1[0]
+                enemy1[6].x = -1000
+                enemy1[6].y = -1000
+                self.cld1 = 7
+            elif self.cld1 == 7:
+                self.x = mouseXsave1[0]
+                self.y = mouseYsave1[0]
+                enemy1[7].x = -1000
+                enemy1[7].y = -1000
+                self.cld1 = 8
+            elif self.cld1 == 8:
+                self.x = mouseXsave1[0]
+                self.y = mouseYsave1[0]
+                enemy1[8].x = -1000
+                enemy1[8].y = -1000
+                self.cld1 = 9
+            elif self.cld1 == 9:
+                self.x = mouseXsave1[0]
+                self.y = mouseYsave1[0]
+                enemy1[9].x = -1000
+                enemy1[9].y = -1000
+                self.cld1 = 10
 
     def draw(self):
         draw_rectangle(*self.get_bb())
@@ -666,11 +793,11 @@ class Bullet:
 
 def exit():
     global enemy1, enemy2, enemy3, tower1, tower2, tower3, grass
-    for i in range(0, 5):
+    for i in range(0, 20):
         del(enemy1[i])
-    for i in range(0, 5):
+    for i in range(0, 20):
         del(enemy2[i])
-    for i in range(0, 5):
+    for i in range(0, 20):
         del(enemy3[i])
     del(tower1)
     del(tower2)
@@ -717,7 +844,6 @@ def handle_events():
                         if event.y <= 245:
                             mouseFlag3[mouseNum3] = True
 
-
         elif event.type == SDL_MOUSEBUTTONUP:
             if mouseFlag1[mouseNum1]:
                 mouseXsave1[mouseNum1], mouseYsave1[mouseNum1] = event.x, 640 - 1 - event.y
@@ -746,6 +872,7 @@ def collide(a, b):
 
     return True
 
+
 time = 0
 
 
@@ -753,6 +880,7 @@ def update():
     global time, first_time, bulletNum1
     enemy1[0].update()
     time = get_time() - first_time
+    print(time)
 
     for i in range(5):
         if enemy1[i].collide():
@@ -798,7 +926,6 @@ def draw():
     clear_canvas()
     grass.draw()
 
-
     enemy1[0].draw()
     if time >= 1:
         enemy1[1].draw()
@@ -833,7 +960,6 @@ def draw():
     tower1.draw()
     tower2.draw()
     tower3.draw()
-
 
     for i in range(5):
         if enemy1[i].collide():
