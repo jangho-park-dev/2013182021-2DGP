@@ -81,6 +81,9 @@ class Grass:
         self.font = load_font('ENCR10B.TTF', 16)
         self.hp = 100
         self.gold = 100
+        self.bgm = load_music('map.mid')
+        self.bgm.set_volume(64)
+        self.bgm.repeat_play()
 
     def draw(self):
         global stage
@@ -1031,6 +1034,7 @@ class Bullet:
         if self.flag1:
             self.x = mouseXsave1[0]
             self.y = mouseYsave1[0]
+            print(self.x, self.y)
             self.flag1 = 0
 
         self.speed = 96
@@ -1994,7 +1998,7 @@ class Bullet3:
         self.y = 0
         self.enemy_x = [0 for i in range(20)]
         self.enemy_y = [0 for i in range(20)]
-        self.flag1 = 1
+        self.flag = 1
         self.dir = 0
         self.speed = 0
         self.time = 0
@@ -2007,6 +2011,16 @@ class Bullet3:
         for i in range(0, 20):
             self.enemy_x[i] = enemy1[i].x
             self.enemy_y[i] = enemy1[i].y
+
+    def setEnemy2List(self, enemy2):
+        for i in range(0, 20):
+            self.enemy_x[i] = enemy2[i].x
+            self.enemy_y[i] = enemy2[i].y
+
+    def setEnemy3List(self, enemy3):
+        for i in range(0, 20):
+            self.enemy_x[i] = enemy3[i].x
+            self.enemy_y[i] = enemy3[i].y
 
     def collide(self):
         left_a, bottom_a, right_a, top_a = self.get_bb()
@@ -2115,14 +2129,25 @@ class Bullet3:
         return True
 
     def update(self):
-        global bulletNum1
+        global bulletNum1, stage
         self.frame = (self.frame + 1) % 1
-        self.setEnemy1List(enemy1)
+        if stage == 1:
+            self.setEnemy1List(enemy1)
+        if stage == 2:
+            self.setEnemy1List(enemy1)
+        if stage == 3:
+            self.setEnemy2List(enemy2)
+        if stage == 4:
+            self.setEnemy2List(enemy2)
+        if stage == 5:
+            self.setEnemy3List(enemy3)
+        if stage == 6:
+            self.setEnemy3List(enemy3)
 
-        if self.flag1:
-            self.x = mouseXsave1[1]
-            self.y = mouseYsave1[1]
-            self.flag1 = 0
+        if self.flag:
+            self.x = mouseXsave2[0]
+            self.y = mouseYsave2[0]
+            self.flag = 0
 
         self.speed = 96
 
@@ -2174,10 +2199,14 @@ class Bullet3:
 
         if self.collide():
             if self.cld1 == 0:
-                self.x = mouseXsave1[1]
-                self.y = mouseYsave1[1]
+                self.x = mouseXsave2[0]
+                self.y = mouseYsave2[0]
                 enemy1[0].x = 100000000
                 enemy1[0].y = 100000000
+                enemy2[0].x = 100000000
+                enemy2[0].y = 100000000
+                enemy3[0].x = 100000000
+                enemy3[0].y = 100000000
                 bullet.cld1 = 1
                 bullet2.cld1 = 1
                 bullet3.cld1 = 1
@@ -2185,12 +2214,16 @@ class Bullet3:
                 bullet5.cld1 = 1
                 bullet6.cld1 = 1
                 bulletNum1 = 1
-                grass.gold += 10
+                grass.gold += 20
             elif self.cld1 == 1:
-                self.x = mouseXsave1[1]
-                self.y = mouseYsave1[1]
+                self.x = mouseXsave2[0]
+                self.y = mouseYsave2[0]
                 enemy1[1].x = 100000000
                 enemy1[1].y = 100000000
+                enemy2[1].x = 100000000
+                enemy2[1].y = 100000000
+                enemy3[1].x = 100000000
+                enemy3[1].y = 100000000
                 bullet.cld1 = 2
                 bullet2.cld1 = 2
                 bullet3.cld1 = 2
@@ -2198,12 +2231,16 @@ class Bullet3:
                 bullet5.cld1 = 2
                 bullet6.cld1 = 2
                 bulletNum1 = 2
-                grass.gold += 10
+                grass.gold += 20
             elif self.cld1 == 2:
-                self.x = mouseXsave1[1]
-                self.y = mouseYsave1[1]
+                self.x = mouseXsave2[0]
+                self.y = mouseYsave2[0]
                 enemy1[2].x = 100000000
                 enemy1[2].y = 100000000
+                enemy2[2].x = 100000000
+                enemy2[2].y = 100000000
+                enemy3[2].x = 100000000
+                enemy3[2].y = 100000000
                 bullet.cld1 = 3
                 bullet2.cld1 = 3
                 bullet3.cld1 = 3
@@ -2211,12 +2248,16 @@ class Bullet3:
                 bullet5.cld1 = 3
                 bullet6.cld1 = 3
                 bulletNum1 = 3
-                grass.gold += 10
+                grass.gold += 20
             elif self.cld1 == 3:
-                self.x = mouseXsave1[1]
-                self.y = mouseYsave1[1]
+                self.x = mouseXsave2[0]
+                self.y = mouseYsave2[0]
                 enemy1[3].x = 100000000
                 enemy1[3].y = 100000000
+                enemy2[3].x = 100000000
+                enemy2[3].y = 100000000
+                enemy3[3].x = 100000000
+                enemy3[3].y = 100000000
                 bullet.cld1 = 4
                 bullet2.cld1 = 4
                 bullet3.cld1 = 4
@@ -2224,12 +2265,16 @@ class Bullet3:
                 bullet5.cld1 = 4
                 bullet6.cld1 = 4
                 bulletNum1 = 4
-                grass.gold += 10
+                grass.gold += 20
             elif self.cld1 == 4:
-                self.x = mouseXsave1[1]
-                self.y = mouseYsave1[1]
+                self.x = mouseXsave2[0]
+                self.y = mouseYsave2[0]
                 enemy1[4].x = 100000000
                 enemy1[4].y = 100000000
+                enemy2[4].x = 100000000
+                enemy2[4].y = 100000000
+                enemy3[4].x = 100000000
+                enemy3[4].y = 100000000
                 bullet.cld1 = 5
                 bullet2.cld1 = 5
                 bullet3.cld1 = 5
@@ -2237,12 +2282,16 @@ class Bullet3:
                 bullet5.cld1 = 5
                 bullet6.cld1 = 5
                 bulletNum1 = 5
-                grass.gold += 10
+                grass.gold += 20
             elif self.cld1 == 5:
-                self.x = mouseXsave1[1]
-                self.y = mouseYsave1[1]
+                self.x = mouseXsave2[0]
+                self.y = mouseYsave2[0]
                 enemy1[5].x = 100000000
                 enemy1[5].y = 100000000
+                enemy2[5].x = 100000000
+                enemy2[5].y = 100000000
+                enemy3[5].x = 100000000
+                enemy3[5].y = 100000000
                 bullet.cld1 = 6
                 bullet2.cld1 = 6
                 bullet3.cld1 = 6
@@ -2250,12 +2299,16 @@ class Bullet3:
                 bullet5.cld1 = 6
                 bullet6.cld1 = 6
                 bulletNum1 = 6
-                grass.gold += 10
+                grass.gold +=20
             elif self.cld1 == 6:
-                self.x = mouseXsave1[1]
-                self.y = mouseYsave1[1]
+                self.x = mouseXsave2[0]
+                self.y = mouseYsave2[0]
                 enemy1[6].x = 100000000
                 enemy1[6].y = 100000000
+                enemy2[6].x = 100000000
+                enemy2[6].y = 100000000
+                enemy3[6].x = 100000000
+                enemy3[6].y = 100000000
                 bullet.cld1 = 7
                 bullet2.cld1 = 7
                 bullet3.cld1 = 7
@@ -2263,12 +2316,16 @@ class Bullet3:
                 bullet5.cld1 = 7
                 bullet6.cld1 = 7
                 bulletNum1 = 7
-                grass.gold += 10
+                grass.gold += 20
             elif self.cld1 == 7:
-                self.x = mouseXsave1[1]
-                self.y = mouseYsave1[1]
+                self.x = mouseXsave2[0]
+                self.y = mouseYsave2[0]
                 enemy1[7].x = 100000000
                 enemy1[7].y = 100000000
+                enemy2[7].x = 100000000
+                enemy2[7].y = 100000000
+                enemy3[7].x = 100000000
+                enemy3[7].y = 100000000
                 bullet.cld1 = 8
                 bullet2.cld1 = 8
                 bullet3.cld1 = 8
@@ -2276,12 +2333,16 @@ class Bullet3:
                 bullet5.cld1 = 8
                 bullet6.cld1 = 1
                 bulletNum1 = 8
-                grass.gold += 10
+                grass.gold += 20
             elif self.cld1 == 8:
-                self.x = mouseXsave1[1]
-                self.y = mouseYsave1[1]
+                self.x = mouseXsave2[0]
+                self.y = mouseYsave2[0]
                 enemy1[8].x = 100000000
                 enemy1[8].y = 100000000
+                enemy2[8].x = 100000000
+                enemy2[8].y = 100000000
+                enemy3[8].x = 100000000
+                enemy3[8].y = 100000000
                 bullet.cld1 = 9
                 bullet2.cld1 = 9
                 bullet3.cld1 = 9
@@ -2289,12 +2350,16 @@ class Bullet3:
                 bullet5.cld1 = 9
                 bullet6.cld1 = 9
                 bulletNum1 = 9
-                grass.gold += 10
+                grass.gold += 20
             elif self.cld1 == 9:
-                self.x = mouseXsave1[1]
-                self.y = mouseYsave1[1]
+                self.x = mouseXsave2[0]
+                self.y = mouseYsave2[0]
                 enemy1[9].x = 100000000
                 enemy1[9].y = 100000000
+                enemy2[9].x = 100000000
+                enemy2[9].y = 100000000
+                enemy3[9].x = 100000000
+                enemy3[9].y = 100000000
                 bullet.cld1 = 10
                 bullet2.cld1 = 10
                 bullet3.cld1 = 10
@@ -2302,12 +2367,16 @@ class Bullet3:
                 bullet5.cld1 = 10
                 bullet6.cld1 = 10
                 bulletNum1 = 10
-                grass.gold += 10
+                grass.gold += 20
             elif self.cld1 == 10:
-                self.x = mouseXsave1[1]
-                self.y = mouseYsave1[1]
+                self.x = mouseXsave2[0]
+                self.y = mouseYsave2[0]
                 enemy1[10].x = 100000000
                 enemy1[10].y = 100000000
+                enemy2[10].x = 100000000
+                enemy2[10].y = 100000000
+                enemy3[10].x = 100000000
+                enemy3[10].y = 100000000
                 bullet.cld1 = 11
                 bullet2.cld1 = 11
                 bullet3.cld1 = 11
@@ -2315,12 +2384,16 @@ class Bullet3:
                 bullet5.cld1 = 11
                 bullet6.cld1 = 11
                 bulletNum1 = 11
-                grass.gold += 10
+                grass.gold += 20
             elif self.cld1 == 11:
-                self.x = mouseXsave1[1]
-                self.y = mouseYsave1[1]
+                self.x = mouseXsave2[0]
+                self.y = mouseYsave2[0]
                 enemy1[11].x = 100000000
                 enemy1[11].y = 100000000
+                enemy2[11].x = 100000000
+                enemy2[11].y = 100000000
+                enemy3[11].x = 100000000
+                enemy3[11].y = 100000000
                 bullet.cld1 = 12
                 bullet2.cld1 = 12
                 bullet3.cld1 = 12
@@ -2328,12 +2401,16 @@ class Bullet3:
                 bullet5.cld1 = 12
                 bullet6.cld1 = 12
                 bulletNum1 = 2
-                grass.gold += 10
+                grass.gold += 20
             elif self.cld1 == 12:
-                self.x = mouseXsave1[1]
-                self.y = mouseYsave1[1]
+                self.x = mouseXsave2[0]
+                self.y = mouseYsave2[0]
                 enemy1[12].x = 100000000
                 enemy1[12].y = 100000000
+                enemy2[12].x = 100000000
+                enemy2[12].y = 100000000
+                enemy3[12].x = 100000000
+                enemy3[12].y = 100000000
                 bullet.cld1 = 13
                 bullet2.cld1 = 13
                 bullet3.cld1 = 13
@@ -2341,12 +2418,16 @@ class Bullet3:
                 bullet5.cld1 = 13
                 bullet6.cld1 = 13
                 bulletNum1 = 3
-                grass.gold += 10
+                grass.gold +=20
             elif self.cld1 == 13:
-                self.x = mouseXsave1[1]
-                self.y = mouseYsave1[1]
+                self.x = mouseXsave2[0]
+                self.y = mouseYsave2[0]
                 enemy1[13].x = 100000000
                 enemy1[13].y = 100000000
+                enemy2[13].x = 100000000
+                enemy2[13].y = 100000000
+                enemy3[13].x = 100000000
+                enemy3[13].y = 100000000
                 bullet.cld1 = 14
                 bullet2.cld1 = 14
                 bullet3.cld1 = 14
@@ -2354,12 +2435,16 @@ class Bullet3:
                 bullet5.cld1 = 14
                 bullet6.cld1 = 14
                 bulletNum1 = 4
-                grass.gold += 10
+                grass.gold += 20
             elif self.cld1 == 14:
-                self.x = mouseXsave1[1]
-                self.y = mouseYsave1[1]
+                self.x = mouseXsave2[0]
+                self.y = mouseYsave2[0]
                 enemy1[14].x = 100000000
                 enemy1[14].y = 100000000
+                enemy2[14].x = 100000000
+                enemy2[14].y = 100000000
+                enemy3[14].x = 100000000
+                enemy3[14].y = 100000000
                 bullet.cld1 = 15
                 bullet2.cld1 = 15
                 bullet3.cld1 = 15
@@ -2367,12 +2452,16 @@ class Bullet3:
                 bullet5.cld1 = 15
                 bullet6.cld1 = 15
                 bulletNum1 = 5
-                grass.gold += 10
+                grass.gold += 20
             elif self.cld1 == 15:
-                self.x = mouseXsave1[1]
-                self.y = mouseYsave1[1]
+                self.x = mouseXsave2[0]
+                self.y = mouseYsave2[0]
                 enemy1[15].x = 100000000
                 enemy1[15].y = 100000000
+                enemy2[15].x = 100000000
+                enemy2[15].y = 100000000
+                enemy3[15].x = 100000000
+                enemy3[15].y = 100000000
                 bullet.cld1 = 16
                 bullet2.cld1 = 16
                 bullet3.cld1 = 16
@@ -2380,12 +2469,16 @@ class Bullet3:
                 bullet5.cld1 = 16
                 bullet6.cld1 = 16
                 bulletNum1 = 6
-                grass.gold += 10
+                grass.gold += 20
             elif self.cld1 == 16:
-                self.x = mouseXsave1[1]
-                self.y = mouseYsave1[1]
+                self.x = mouseXsave2[0]
+                self.y = mouseYsave2[0]
                 enemy1[16].x = 100000000
                 enemy1[16].y = 100000000
+                enemy2[16].x = 100000000
+                enemy2[16].y = 100000000
+                enemy3[16].x = 100000000
+                enemy3[16].y = 100000000
                 bullet.cld1 = 17
                 bullet2.cld1 = 17
                 bullet3.cld1 = 17
@@ -2393,12 +2486,16 @@ class Bullet3:
                 bullet5.cld1 = 17
                 bullet6.cld1 = 17
                 bulletNum1 = 7
-                grass.gold += 10
+                grass.gold +=20
             elif self.cld1 == 17:
-                self.x = mouseXsave1[1]
-                self.y = mouseYsave1[1]
+                self.x = mouseXsave2[0]
+                self.y = mouseYsave2[0]
                 enemy1[17].x = 100000000
                 enemy1[17].y = 100000000
+                enemy2[17].x = 100000000
+                enemy2[17].y = 100000000
+                enemy3[17].x = 100000000
+                enemy3[17].y = 100000000
                 bullet.cld1 = 18
                 bullet2.cld1 = 18
                 bullet3.cld1 = 18
@@ -2406,12 +2503,16 @@ class Bullet3:
                 bullet5.cld1 = 18
                 bullet6.cld1 = 18
                 bulletNum1 = 8
-                grass.gold += 10
+                grass.gold += 20
             elif self.cld1 == 18:
-                self.x = mouseXsave1[1]
-                self.y = mouseYsave1[1]
+                self.x = mouseXsave2[0]
+                self.y = mouseYsave2[0]
                 enemy1[18].x = 100000000
                 enemy1[18].y = 100000000
+                enemy2[18].x = 100000000
+                enemy2[18].y = 100000000
+                enemy3[18].x = 100000000
+                enemy3[18].y = 100000000
                 bullet.cld1 = 19
                 bullet2.cld1 = 19
                 bullet3.cld1 = 19
@@ -2419,12 +2520,16 @@ class Bullet3:
                 bullet5.cld1 = 19
                 bullet6.cld1 = 19
                 bulletNum1 = 9
-                grass.gold += 10
+                grass.gold += 20
             elif self.cld1 == 19:
-                self.x = mouseXsave1[1]
-                self.y = mouseYsave1[1]
+                self.x = mouseXsave2[0]
+                self.y = mouseYsave2[0]
                 enemy1[19].x = 100000000
                 enemy1[19].y = 100000000
+                enemy2[19].x = 100000000
+                enemy2[19].y = 100000000
+                enemy3[19].x = 100000000
+                enemy3[19].y = 100000000
                 bullet.cld1 = 20
                 bullet2.cld1 = 20
                 bullet3.cld1 = 20
@@ -2432,11 +2537,11 @@ class Bullet3:
                 bullet5.cld1 = 20
                 bullet6.cld1 = 20
                 bulletNum1 = 20
-                grass.gold += 10
+                grass.gold += 20
 
     def draw(self):
         draw_rectangle(*self.get_bb())
-        self.image.clip_draw(160, 180, 14, 14, self.x, self.y)
+        self.image.clip_draw(206, 225, 14, 14, self.x, self.y)
 
 
 class Bullet4:
@@ -2458,10 +2563,20 @@ class Bullet4:
     def get_bb(self):
         return self.x - 7, self.y - 7, self.x + 7, self.y + 7
 
-    def setEnemyList(self, enemy1):
+    def setEnemy1List(self, enemy1):
         for i in range(0, 20):
             self.enemy_x[i] = enemy1[i].x
             self.enemy_y[i] = enemy1[i].y
+
+    def setEnemy2List(self, enemy2):
+        for i in range(0, 20):
+            self.enemy_x[i] = enemy2[i].x
+            self.enemy_y[i] = enemy2[i].y
+
+    def setEnemy3List(self, enemy3):
+        for i in range(0, 20):
+            self.enemy_x[i] = enemy3[i].x
+            self.enemy_y[i] = enemy3[i].y
 
     def collide(self):
         left_a, bottom_a, right_a, top_a = self.get_bb()
@@ -2570,13 +2685,24 @@ class Bullet4:
         return True
 
     def update(self):
-        global bulletNum1
+        global bulletNum1, stage
         self.frame = (self.frame + 1) % 1
-        self.setEnemyList(enemy1)
+        if stage == 1:
+            self.setEnemy1List(enemy1)
+        if stage == 2:
+            self.setEnemy1List(enemy1)
+        if stage == 3:
+            self.setEnemy2List(enemy2)
+        if stage == 4:
+            self.setEnemy2List(enemy2)
+        if stage == 5:
+            self.setEnemy3List(enemy3)
+        if stage == 6:
+            self.setEnemy3List(enemy3)
 
         if self.flag1:
-            self.x = mouseXsave1[1]
-            self.y = mouseYsave1[1]
+            self.x = mouseXsave2[1]
+            self.y = mouseYsave2[1]
             self.flag1 = 0
 
         self.speed = 96
@@ -2629,10 +2755,14 @@ class Bullet4:
 
         if self.collide():
             if self.cld1 == 0:
-                self.x = mouseXsave1[1]
-                self.y = mouseYsave1[1]
+                self.x = mouseXsave2[1]
+                self.y = mouseYsave2[1]
                 enemy1[0].x = 100000000
                 enemy1[0].y = 100000000
+                enemy2[0].x = 100000000
+                enemy2[0].y = 100000000
+                enemy3[0].x = 100000000
+                enemy3[0].y = 100000000
                 bullet.cld1 = 1
                 bullet2.cld1 = 1
                 bullet3.cld1 = 1
@@ -2640,12 +2770,16 @@ class Bullet4:
                 bullet5.cld1 = 1
                 bullet6.cld1 = 1
                 bulletNum1 = 1
-                grass.gold += 10
+                grass.gold += 20
             elif self.cld1 == 1:
-                self.x = mouseXsave1[1]
-                self.y = mouseYsave1[1]
+                self.x = mouseXsave2[1]
+                self.y = mouseYsave2[1]
                 enemy1[1].x = 100000000
                 enemy1[1].y = 100000000
+                enemy2[1].x = 100000000
+                enemy2[1].y = 100000000
+                enemy3[1].x = 100000000
+                enemy3[1].y = 100000000
                 bullet.cld1 = 2
                 bullet2.cld1 = 2
                 bullet3.cld1 = 2
@@ -2653,12 +2787,16 @@ class Bullet4:
                 bullet5.cld1 = 2
                 bullet6.cld1 = 2
                 bulletNum1 = 2
-                grass.gold += 10
+                grass.gold += 20
             elif self.cld1 == 2:
-                self.x = mouseXsave1[1]
-                self.y = mouseYsave1[1]
+                self.x = mouseXsave2[1]
+                self.y = mouseYsave2[1]
                 enemy1[2].x = 100000000
                 enemy1[2].y = 100000000
+                enemy2[2].x = 100000000
+                enemy2[2].y = 100000000
+                enemy3[2].x = 100000000
+                enemy3[2].y = 100000000
                 bullet.cld1 = 3
                 bullet2.cld1 = 3
                 bullet3.cld1 = 3
@@ -2666,12 +2804,16 @@ class Bullet4:
                 bullet5.cld1 = 3
                 bullet6.cld1 = 3
                 bulletNum1 = 3
-                grass.gold += 10
+                grass.gold += 20
             elif self.cld1 == 3:
-                self.x = mouseXsave1[1]
-                self.y = mouseYsave1[1]
+                self.x = mouseXsave2[1]
+                self.y = mouseYsave2[1]
                 enemy1[3].x = 100000000
                 enemy1[3].y = 100000000
+                enemy2[3].x = 100000000
+                enemy2[3].y = 100000000
+                enemy3[3].x = 100000000
+                enemy3[3].y = 100000000
                 bullet.cld1 = 4
                 bullet2.cld1 = 4
                 bullet3.cld1 = 4
@@ -2679,12 +2821,16 @@ class Bullet4:
                 bullet5.cld1 = 4
                 bullet6.cld1 = 4
                 bulletNum1 = 4
-                grass.gold += 10
+                grass.gold += 20
             elif self.cld1 == 4:
-                self.x = mouseXsave1[1]
-                self.y = mouseYsave1[1]
+                self.x = mouseXsave2[1]
+                self.y = mouseYsave2[1]
                 enemy1[4].x = 100000000
                 enemy1[4].y = 100000000
+                enemy2[4].x = 100000000
+                enemy2[4].y = 100000000
+                enemy3[4].x = 100000000
+                enemy3[4].y = 100000000
                 bullet.cld1 = 5
                 bullet2.cld1 = 5
                 bullet3.cld1 = 5
@@ -2692,12 +2838,16 @@ class Bullet4:
                 bullet5.cld1 = 5
                 bullet6.cld1 = 5
                 bulletNum1 = 5
-                grass.gold += 10
+                grass.gold += 20
             elif self.cld1 == 5:
-                self.x = mouseXsave1[1]
-                self.y = mouseYsave1[1]
+                self.x = mouseXsave2[1]
+                self.y = mouseYsave2[1]
                 enemy1[5].x = 100000000
                 enemy1[5].y = 100000000
+                enemy2[5].x = 100000000
+                enemy2[5].y = 100000000
+                enemy3[5].x = 100000000
+                enemy3[5].y = 100000000
                 bullet.cld1 = 6
                 bullet2.cld1 = 6
                 bullet3.cld1 = 6
@@ -2705,12 +2855,16 @@ class Bullet4:
                 bullet5.cld1 = 6
                 bullet6.cld1 = 6
                 bulletNum1 = 6
-                grass.gold += 10
+                grass.gold +=20
             elif self.cld1 == 6:
-                self.x = mouseXsave1[1]
-                self.y = mouseYsave1[1]
+                self.x = mouseXsave2[1]
+                self.y = mouseYsave2[1]
                 enemy1[6].x = 100000000
                 enemy1[6].y = 100000000
+                enemy2[6].x = 100000000
+                enemy2[6].y = 100000000
+                enemy3[6].x = 100000000
+                enemy3[6].y = 100000000
                 bullet.cld1 = 7
                 bullet2.cld1 = 7
                 bullet3.cld1 = 7
@@ -2718,12 +2872,16 @@ class Bullet4:
                 bullet5.cld1 = 7
                 bullet6.cld1 = 7
                 bulletNum1 = 7
-                grass.gold += 10
+                grass.gold += 20
             elif self.cld1 == 7:
-                self.x = mouseXsave1[1]
-                self.y = mouseYsave1[1]
+                self.x = mouseXsave2[1]
+                self.y = mouseYsave2[1]
                 enemy1[7].x = 100000000
                 enemy1[7].y = 100000000
+                enemy2[7].x = 100000000
+                enemy2[7].y = 100000000
+                enemy3[7].x = 100000000
+                enemy3[7].y = 100000000
                 bullet.cld1 = 8
                 bullet2.cld1 = 8
                 bullet3.cld1 = 8
@@ -2731,12 +2889,16 @@ class Bullet4:
                 bullet5.cld1 = 8
                 bullet6.cld1 = 1
                 bulletNum1 = 8
-                grass.gold += 10
+                grass.gold += 20
             elif self.cld1 == 8:
-                self.x = mouseXsave1[1]
-                self.y = mouseYsave1[1]
+                self.x = mouseXsave2[1]
+                self.y = mouseYsave2[1]
                 enemy1[8].x = 100000000
                 enemy1[8].y = 100000000
+                enemy2[8].x = 100000000
+                enemy2[8].y = 100000000
+                enemy3[8].x = 100000000
+                enemy3[8].y = 100000000
                 bullet.cld1 = 9
                 bullet2.cld1 = 9
                 bullet3.cld1 = 9
@@ -2744,12 +2906,16 @@ class Bullet4:
                 bullet5.cld1 = 9
                 bullet6.cld1 = 9
                 bulletNum1 = 9
-                grass.gold += 10
+                grass.gold += 20
             elif self.cld1 == 9:
-                self.x = mouseXsave1[1]
-                self.y = mouseYsave1[1]
+                self.x = mouseXsave2[1]
+                self.y = mouseYsave2[1]
                 enemy1[9].x = 100000000
                 enemy1[9].y = 100000000
+                enemy2[9].x = 100000000
+                enemy2[9].y = 100000000
+                enemy3[9].x = 100000000
+                enemy3[9].y = 100000000
                 bullet.cld1 = 10
                 bullet2.cld1 = 10
                 bullet3.cld1 = 10
@@ -2757,12 +2923,16 @@ class Bullet4:
                 bullet5.cld1 = 10
                 bullet6.cld1 = 10
                 bulletNum1 = 10
-                grass.gold += 10
+                grass.gold += 20
             elif self.cld1 == 10:
-                self.x = mouseXsave1[1]
-                self.y = mouseYsave1[1]
+                self.x = mouseXsave2[1]
+                self.y = mouseYsave2[1]
                 enemy1[10].x = 100000000
                 enemy1[10].y = 100000000
+                enemy2[10].x = 100000000
+                enemy2[10].y = 100000000
+                enemy3[10].x = 100000000
+                enemy3[10].y = 100000000
                 bullet.cld1 = 11
                 bullet2.cld1 = 11
                 bullet3.cld1 = 11
@@ -2770,12 +2940,16 @@ class Bullet4:
                 bullet5.cld1 = 11
                 bullet6.cld1 = 11
                 bulletNum1 = 11
-                grass.gold += 10
+                grass.gold += 20
             elif self.cld1 == 11:
-                self.x = mouseXsave1[1]
-                self.y = mouseYsave1[1]
+                self.x = mouseXsave2[1]
+                self.y = mouseYsave2[1]
                 enemy1[11].x = 100000000
                 enemy1[11].y = 100000000
+                enemy2[11].x = 100000000
+                enemy2[11].y = 100000000
+                enemy3[11].x = 100000000
+                enemy3[11].y = 100000000
                 bullet.cld1 = 12
                 bullet2.cld1 = 12
                 bullet3.cld1 = 12
@@ -2783,12 +2957,16 @@ class Bullet4:
                 bullet5.cld1 = 12
                 bullet6.cld1 = 12
                 bulletNum1 = 2
-                grass.gold += 10
+                grass.gold += 20
             elif self.cld1 == 12:
-                self.x = mouseXsave1[1]
-                self.y = mouseYsave1[1]
+                self.x = mouseXsave2[1]
+                self.y = mouseYsave2[1]
                 enemy1[12].x = 100000000
                 enemy1[12].y = 100000000
+                enemy2[12].x = 100000000
+                enemy2[12].y = 100000000
+                enemy3[12].x = 100000000
+                enemy3[12].y = 100000000
                 bullet.cld1 = 13
                 bullet2.cld1 = 13
                 bullet3.cld1 = 13
@@ -2796,12 +2974,16 @@ class Bullet4:
                 bullet5.cld1 = 13
                 bullet6.cld1 = 13
                 bulletNum1 = 3
-                grass.gold += 10
+                grass.gold +=20
             elif self.cld1 == 13:
-                self.x = mouseXsave1[1]
-                self.y = mouseYsave1[1]
+                self.x = mouseXsave2[1]
+                self.y = mouseYsave2[1]
                 enemy1[13].x = 100000000
                 enemy1[13].y = 100000000
+                enemy2[13].x = 100000000
+                enemy2[13].y = 100000000
+                enemy3[13].x = 100000000
+                enemy3[13].y = 100000000
                 bullet.cld1 = 14
                 bullet2.cld1 = 14
                 bullet3.cld1 = 14
@@ -2809,12 +2991,16 @@ class Bullet4:
                 bullet5.cld1 = 14
                 bullet6.cld1 = 14
                 bulletNum1 = 4
-                grass.gold += 10
+                grass.gold += 20
             elif self.cld1 == 14:
-                self.x = mouseXsave1[1]
-                self.y = mouseYsave1[1]
+                self.x = mouseXsave2[1]
+                self.y = mouseYsave2[1]
                 enemy1[14].x = 100000000
                 enemy1[14].y = 100000000
+                enemy2[14].x = 100000000
+                enemy2[14].y = 100000000
+                enemy3[14].x = 100000000
+                enemy3[14].y = 100000000
                 bullet.cld1 = 15
                 bullet2.cld1 = 15
                 bullet3.cld1 = 15
@@ -2822,12 +3008,16 @@ class Bullet4:
                 bullet5.cld1 = 15
                 bullet6.cld1 = 15
                 bulletNum1 = 5
-                grass.gold += 10
+                grass.gold += 20
             elif self.cld1 == 15:
-                self.x = mouseXsave1[1]
-                self.y = mouseYsave1[1]
+                self.x = mouseXsave2[1]
+                self.y = mouseYsave2[1]
                 enemy1[15].x = 100000000
                 enemy1[15].y = 100000000
+                enemy2[15].x = 100000000
+                enemy2[15].y = 100000000
+                enemy3[15].x = 100000000
+                enemy3[15].y = 100000000
                 bullet.cld1 = 16
                 bullet2.cld1 = 16
                 bullet3.cld1 = 16
@@ -2835,12 +3025,16 @@ class Bullet4:
                 bullet5.cld1 = 16
                 bullet6.cld1 = 16
                 bulletNum1 = 6
-                grass.gold += 10
+                grass.gold += 20
             elif self.cld1 == 16:
-                self.x = mouseXsave1[1]
-                self.y = mouseYsave1[1]
+                self.x = mouseXsave2[1]
+                self.y = mouseYsave2[1]
                 enemy1[16].x = 100000000
                 enemy1[16].y = 100000000
+                enemy2[16].x = 100000000
+                enemy2[16].y = 100000000
+                enemy3[16].x = 100000000
+                enemy3[16].y = 100000000
                 bullet.cld1 = 17
                 bullet2.cld1 = 17
                 bullet3.cld1 = 17
@@ -2848,12 +3042,16 @@ class Bullet4:
                 bullet5.cld1 = 17
                 bullet6.cld1 = 17
                 bulletNum1 = 7
-                grass.gold += 10
+                grass.gold +=20
             elif self.cld1 == 17:
-                self.x = mouseXsave1[1]
-                self.y = mouseYsave1[1]
+                self.x = mouseXsave2[1]
+                self.y = mouseYsave2[1]
                 enemy1[17].x = 100000000
                 enemy1[17].y = 100000000
+                enemy2[17].x = 100000000
+                enemy2[17].y = 100000000
+                enemy3[17].x = 100000000
+                enemy3[17].y = 100000000
                 bullet.cld1 = 18
                 bullet2.cld1 = 18
                 bullet3.cld1 = 18
@@ -2861,12 +3059,16 @@ class Bullet4:
                 bullet5.cld1 = 18
                 bullet6.cld1 = 18
                 bulletNum1 = 8
-                grass.gold += 10
+                grass.gold += 20
             elif self.cld1 == 18:
-                self.x = mouseXsave1[1]
-                self.y = mouseYsave1[1]
+                self.x = mouseXsave2[1]
+                self.y = mouseYsave2[1]
                 enemy1[18].x = 100000000
                 enemy1[18].y = 100000000
+                enemy2[18].x = 100000000
+                enemy2[18].y = 100000000
+                enemy3[18].x = 100000000
+                enemy3[18].y = 100000000
                 bullet.cld1 = 19
                 bullet2.cld1 = 19
                 bullet3.cld1 = 19
@@ -2874,12 +3076,16 @@ class Bullet4:
                 bullet5.cld1 = 19
                 bullet6.cld1 = 19
                 bulletNum1 = 9
-                grass.gold += 10
+                grass.gold += 20
             elif self.cld1 == 19:
-                self.x = mouseXsave1[1]
-                self.y = mouseYsave1[1]
+                self.x = mouseXsave2[1]
+                self.y = mouseYsave2[1]
                 enemy1[19].x = 100000000
                 enemy1[19].y = 100000000
+                enemy2[19].x = 100000000
+                enemy2[19].y = 100000000
+                enemy3[19].x = 100000000
+                enemy3[19].y = 100000000
                 bullet.cld1 = 20
                 bullet2.cld1 = 20
                 bullet3.cld1 = 20
@@ -2887,11 +3093,11 @@ class Bullet4:
                 bullet5.cld1 = 20
                 bullet6.cld1 = 20
                 bulletNum1 = 20
-                grass.gold += 10
+                grass.gold += 20
 
     def draw(self):
         draw_rectangle(*self.get_bb())
-        self.image.clip_draw(160, 180, 14, 14, self.x, self.y)
+        self.image.clip_draw(206, 225, 14, 14, self.x, self.y)
 
 
 class Bullet5:
@@ -2913,10 +3119,20 @@ class Bullet5:
     def get_bb(self):
         return self.x - 7, self.y - 7, self.x + 7, self.y + 7
 
-    def setEnemyList(self, enemy1):
+    def setEnemy1List(self, enemy1):
         for i in range(0, 20):
             self.enemy_x[i] = enemy1[i].x
             self.enemy_y[i] = enemy1[i].y
+
+    def setEnemy2List(self, enemy2):
+        for i in range(0, 20):
+            self.enemy_x[i] = enemy2[i].x
+            self.enemy_y[i] = enemy2[i].y
+
+    def setEnemy3List(self, enemy3):
+        for i in range(0, 20):
+            self.enemy_x[i] = enemy3[i].x
+            self.enemy_y[i] = enemy3[i].y
 
     def collide(self):
         left_a, bottom_a, right_a, top_a = self.get_bb()
@@ -3025,13 +3241,24 @@ class Bullet5:
         return True
 
     def update(self):
-        global bulletNum1
+        global bulletNum1, stage
         self.frame = (self.frame + 1) % 1
-        self.setEnemyList(enemy1)
+        if stage == 1:
+            self.setEnemy1List(enemy1)
+        if stage == 2:
+            self.setEnemy1List(enemy1)
+        if stage == 3:
+            self.setEnemy2List(enemy2)
+        if stage == 4:
+            self.setEnemy2List(enemy2)
+        if stage == 5:
+            self.setEnemy3List(enemy3)
+        if stage == 6:
+            self.setEnemy3List(enemy3)
 
         if self.flag1:
-            self.x = mouseXsave1[1]
-            self.y = mouseYsave1[1]
+            self.x = mouseXsave3[0]
+            self.y = mouseYsave3[0]
             self.flag1 = 0
 
         self.speed = 96
@@ -3084,10 +3311,14 @@ class Bullet5:
 
         if self.collide():
             if self.cld1 == 0:
-                self.x = mouseXsave1[1]
-                self.y = mouseYsave1[1]
+                self.x = mouseXsave3[0]
+                self.y = mouseYsave3[0]
                 enemy1[0].x = 100000000
                 enemy1[0].y = 100000000
+                enemy2[0].x = 100000000
+                enemy2[0].y = 100000000
+                enemy3[0].x = 100000000
+                enemy3[0].y = 100000000
                 bullet.cld1 = 1
                 bullet2.cld1 = 1
                 bullet3.cld1 = 1
@@ -3095,12 +3326,16 @@ class Bullet5:
                 bullet5.cld1 = 1
                 bullet6.cld1 = 1
                 bulletNum1 = 1
-                grass.gold += 10
+                grass.gold += 30
             elif self.cld1 == 1:
-                self.x = mouseXsave1[1]
-                self.y = mouseYsave1[1]
+                self.x = mouseXsave3[0]
+                self.y = mouseYsave3[0]
                 enemy1[1].x = 100000000
                 enemy1[1].y = 100000000
+                enemy2[1].x = 100000000
+                enemy2[1].y = 100000000
+                enemy3[1].x = 100000000
+                enemy3[1].y = 100000000
                 bullet.cld1 = 2
                 bullet2.cld1 = 2
                 bullet3.cld1 = 2
@@ -3108,12 +3343,16 @@ class Bullet5:
                 bullet5.cld1 = 2
                 bullet6.cld1 = 2
                 bulletNum1 = 2
-                grass.gold += 10
+                grass.gold += 30
             elif self.cld1 == 2:
-                self.x = mouseXsave1[1]
-                self.y = mouseYsave1[1]
+                self.x = mouseXsave3[0]
+                self.y = mouseYsave3[0]
                 enemy1[2].x = 100000000
                 enemy1[2].y = 100000000
+                enemy2[2].x = 100000000
+                enemy2[2].y = 100000000
+                enemy3[2].x = 100000000
+                enemy3[2].y = 100000000
                 bullet.cld1 = 3
                 bullet2.cld1 = 3
                 bullet3.cld1 = 3
@@ -3121,12 +3360,16 @@ class Bullet5:
                 bullet5.cld1 = 3
                 bullet6.cld1 = 3
                 bulletNum1 = 3
-                grass.gold += 10
+                grass.gold += 30
             elif self.cld1 == 3:
-                self.x = mouseXsave1[1]
-                self.y = mouseYsave1[1]
+                self.x = mouseXsave3[0]
+                self.y = mouseYsave3[0]
                 enemy1[3].x = 100000000
                 enemy1[3].y = 100000000
+                enemy2[3].x = 100000000
+                enemy2[3].y = 100000000
+                enemy3[3].x = 100000000
+                enemy3[3].y = 100000000
                 bullet.cld1 = 4
                 bullet2.cld1 = 4
                 bullet3.cld1 = 4
@@ -3134,12 +3377,16 @@ class Bullet5:
                 bullet5.cld1 = 4
                 bullet6.cld1 = 4
                 bulletNum1 = 4
-                grass.gold += 10
+                grass.gold += 30
             elif self.cld1 == 4:
-                self.x = mouseXsave1[1]
-                self.y = mouseYsave1[1]
+                self.x = mouseXsave3[0]
+                self.y = mouseYsave3[0]
                 enemy1[4].x = 100000000
                 enemy1[4].y = 100000000
+                enemy2[4].x = 100000000
+                enemy2[4].y = 100000000
+                enemy3[4].x = 100000000
+                enemy3[4].y = 100000000
                 bullet.cld1 = 5
                 bullet2.cld1 = 5
                 bullet3.cld1 = 5
@@ -3147,12 +3394,16 @@ class Bullet5:
                 bullet5.cld1 = 5
                 bullet6.cld1 = 5
                 bulletNum1 = 5
-                grass.gold += 10
+                grass.gold += 30
             elif self.cld1 == 5:
-                self.x = mouseXsave1[1]
-                self.y = mouseYsave1[1]
+                self.x = mouseXsave3[0]
+                self.y = mouseYsave3[0]
                 enemy1[5].x = 100000000
                 enemy1[5].y = 100000000
+                enemy2[5].x = 100000000
+                enemy2[5].y = 100000000
+                enemy3[5].x = 100000000
+                enemy3[5].y = 100000000
                 bullet.cld1 = 6
                 bullet2.cld1 = 6
                 bullet3.cld1 = 6
@@ -3160,12 +3411,16 @@ class Bullet5:
                 bullet5.cld1 = 6
                 bullet6.cld1 = 6
                 bulletNum1 = 6
-                grass.gold += 10
+                grass.gold += 30
             elif self.cld1 == 6:
-                self.x = mouseXsave1[1]
-                self.y = mouseYsave1[1]
+                self.x = mouseXsave3[0]
+                self.y = mouseYsave3[0]
                 enemy1[6].x = 100000000
                 enemy1[6].y = 100000000
+                enemy2[6].x = 100000000
+                enemy2[6].y = 100000000
+                enemy3[6].x = 100000000
+                enemy3[6].y = 100000000
                 bullet.cld1 = 7
                 bullet2.cld1 = 7
                 bullet3.cld1 = 7
@@ -3173,12 +3428,16 @@ class Bullet5:
                 bullet5.cld1 = 7
                 bullet6.cld1 = 7
                 bulletNum1 = 7
-                grass.gold += 10
+                grass.gold += 30
             elif self.cld1 == 7:
-                self.x = mouseXsave1[1]
-                self.y = mouseYsave1[1]
+                self.x = mouseXsave3[0]
+                self.y = mouseYsave3[0]
                 enemy1[7].x = 100000000
                 enemy1[7].y = 100000000
+                enemy2[7].x = 100000000
+                enemy2[7].y = 100000000
+                enemy3[7].x = 100000000
+                enemy3[7].y = 100000000
                 bullet.cld1 = 8
                 bullet2.cld1 = 8
                 bullet3.cld1 = 8
@@ -3186,12 +3445,16 @@ class Bullet5:
                 bullet5.cld1 = 8
                 bullet6.cld1 = 1
                 bulletNum1 = 8
-                grass.gold += 10
+                grass.gold += 30
             elif self.cld1 == 8:
-                self.x = mouseXsave1[1]
-                self.y = mouseYsave1[1]
+                self.x = mouseXsave3[0]
+                self.y = mouseYsave3[0]
                 enemy1[8].x = 100000000
                 enemy1[8].y = 100000000
+                enemy2[8].x = 100000000
+                enemy2[8].y = 100000000
+                enemy3[8].x = 100000000
+                enemy3[8].y = 100000000
                 bullet.cld1 = 9
                 bullet2.cld1 = 9
                 bullet3.cld1 = 9
@@ -3199,12 +3462,16 @@ class Bullet5:
                 bullet5.cld1 = 9
                 bullet6.cld1 = 9
                 bulletNum1 = 9
-                grass.gold += 10
+                grass.gold += 30
             elif self.cld1 == 9:
-                self.x = mouseXsave1[1]
-                self.y = mouseYsave1[1]
+                self.x = mouseXsave3[0]
+                self.y = mouseYsave3[0]
                 enemy1[9].x = 100000000
                 enemy1[9].y = 100000000
+                enemy2[9].x = 100000000
+                enemy2[9].y = 100000000
+                enemy3[9].x = 100000000
+                enemy3[9].y = 100000000
                 bullet.cld1 = 10
                 bullet2.cld1 = 10
                 bullet3.cld1 = 10
@@ -3212,12 +3479,16 @@ class Bullet5:
                 bullet5.cld1 = 10
                 bullet6.cld1 = 10
                 bulletNum1 = 10
-                grass.gold += 10
+                grass.gold += 30
             elif self.cld1 == 10:
-                self.x = mouseXsave1[1]
-                self.y = mouseYsave1[1]
+                self.x = mouseXsave3[0]
+                self.y = mouseYsave3[0]
                 enemy1[10].x = 100000000
                 enemy1[10].y = 100000000
+                enemy2[10].x = 100000000
+                enemy2[10].y = 100000000
+                enemy3[10].x = 100000000
+                enemy3[10].y = 100000000
                 bullet.cld1 = 11
                 bullet2.cld1 = 11
                 bullet3.cld1 = 11
@@ -3225,12 +3496,16 @@ class Bullet5:
                 bullet5.cld1 = 11
                 bullet6.cld1 = 11
                 bulletNum1 = 11
-                grass.gold += 10
+                grass.gold += 30
             elif self.cld1 == 11:
-                self.x = mouseXsave1[1]
-                self.y = mouseYsave1[1]
+                self.x = mouseXsave3[0]
+                self.y = mouseYsave3[0]
                 enemy1[11].x = 100000000
                 enemy1[11].y = 100000000
+                enemy2[11].x = 100000000
+                enemy2[11].y = 100000000
+                enemy3[11].x = 100000000
+                enemy3[11].y = 100000000
                 bullet.cld1 = 12
                 bullet2.cld1 = 12
                 bullet3.cld1 = 12
@@ -3238,12 +3513,16 @@ class Bullet5:
                 bullet5.cld1 = 12
                 bullet6.cld1 = 12
                 bulletNum1 = 2
-                grass.gold += 10
+                grass.gold += 30
             elif self.cld1 == 12:
-                self.x = mouseXsave1[1]
-                self.y = mouseYsave1[1]
+                self.x = mouseXsave3[0]
+                self.y = mouseYsave3[0]
                 enemy1[12].x = 100000000
                 enemy1[12].y = 100000000
+                enemy2[12].x = 100000000
+                enemy2[12].y = 100000000
+                enemy3[12].x = 100000000
+                enemy3[12].y = 100000000
                 bullet.cld1 = 13
                 bullet2.cld1 = 13
                 bullet3.cld1 = 13
@@ -3251,12 +3530,16 @@ class Bullet5:
                 bullet5.cld1 = 13
                 bullet6.cld1 = 13
                 bulletNum1 = 3
-                grass.gold += 10
+                grass.gold += 30
             elif self.cld1 == 13:
-                self.x = mouseXsave1[1]
-                self.y = mouseYsave1[1]
+                self.x = mouseXsave3[0]
+                self.y = mouseYsave3[0]
                 enemy1[13].x = 100000000
                 enemy1[13].y = 100000000
+                enemy2[13].x = 100000000
+                enemy2[13].y = 100000000
+                enemy3[13].x = 100000000
+                enemy3[13].y = 100000000
                 bullet.cld1 = 14
                 bullet2.cld1 = 14
                 bullet3.cld1 = 14
@@ -3264,12 +3547,16 @@ class Bullet5:
                 bullet5.cld1 = 14
                 bullet6.cld1 = 14
                 bulletNum1 = 4
-                grass.gold += 10
+                grass.gold += 30
             elif self.cld1 == 14:
-                self.x = mouseXsave1[1]
-                self.y = mouseYsave1[1]
+                self.x = mouseXsave3[0]
+                self.y = mouseYsave3[0]
                 enemy1[14].x = 100000000
                 enemy1[14].y = 100000000
+                enemy2[14].x = 100000000
+                enemy2[14].y = 100000000
+                enemy3[14].x = 100000000
+                enemy3[14].y = 100000000
                 bullet.cld1 = 15
                 bullet2.cld1 = 15
                 bullet3.cld1 = 15
@@ -3277,12 +3564,16 @@ class Bullet5:
                 bullet5.cld1 = 15
                 bullet6.cld1 = 15
                 bulletNum1 = 5
-                grass.gold += 10
+                grass.gold += 30
             elif self.cld1 == 15:
-                self.x = mouseXsave1[1]
-                self.y = mouseYsave1[1]
+                self.x = mouseXsave3[0]
+                self.y = mouseYsave3[0]
                 enemy1[15].x = 100000000
                 enemy1[15].y = 100000000
+                enemy2[15].x = 100000000
+                enemy2[15].y = 100000000
+                enemy3[15].x = 100000000
+                enemy3[15].y = 100000000
                 bullet.cld1 = 16
                 bullet2.cld1 = 16
                 bullet3.cld1 = 16
@@ -3290,12 +3581,16 @@ class Bullet5:
                 bullet5.cld1 = 16
                 bullet6.cld1 = 16
                 bulletNum1 = 6
-                grass.gold += 10
+                grass.gold += 30
             elif self.cld1 == 16:
-                self.x = mouseXsave1[1]
-                self.y = mouseYsave1[1]
+                self.x = mouseXsave3[0]
+                self.y = mouseYsave3[0]
                 enemy1[16].x = 100000000
                 enemy1[16].y = 100000000
+                enemy2[16].x = 100000000
+                enemy2[16].y = 100000000
+                enemy3[16].x = 100000000
+                enemy3[16].y = 100000000
                 bullet.cld1 = 17
                 bullet2.cld1 = 17
                 bullet3.cld1 = 17
@@ -3303,12 +3598,16 @@ class Bullet5:
                 bullet5.cld1 = 17
                 bullet6.cld1 = 17
                 bulletNum1 = 7
-                grass.gold += 10
+                grass.gold += 30
             elif self.cld1 == 17:
-                self.x = mouseXsave1[1]
-                self.y = mouseYsave1[1]
+                self.x = mouseXsave3[0]
+                self.y = mouseYsave3[0]
                 enemy1[17].x = 100000000
                 enemy1[17].y = 100000000
+                enemy2[17].x = 100000000
+                enemy2[17].y = 100000000
+                enemy3[17].x = 100000000
+                enemy3[17].y = 100000000
                 bullet.cld1 = 18
                 bullet2.cld1 = 18
                 bullet3.cld1 = 18
@@ -3316,12 +3615,16 @@ class Bullet5:
                 bullet5.cld1 = 18
                 bullet6.cld1 = 18
                 bulletNum1 = 8
-                grass.gold += 10
+                grass.gold += 30
             elif self.cld1 == 18:
-                self.x = mouseXsave1[1]
-                self.y = mouseYsave1[1]
+                self.x = mouseXsave3[0]
+                self.y = mouseYsave3[0]
                 enemy1[18].x = 100000000
                 enemy1[18].y = 100000000
+                enemy2[18].x = 100000000
+                enemy2[18].y = 100000000
+                enemy3[18].x = 100000000
+                enemy3[18].y = 100000000
                 bullet.cld1 = 19
                 bullet2.cld1 = 19
                 bullet3.cld1 = 19
@@ -3329,12 +3632,16 @@ class Bullet5:
                 bullet5.cld1 = 19
                 bullet6.cld1 = 19
                 bulletNum1 = 9
-                grass.gold += 10
+                grass.gold += 30
             elif self.cld1 == 19:
-                self.x = mouseXsave1[1]
-                self.y = mouseYsave1[1]
+                self.x = mouseXsave3[0]
+                self.y = mouseYsave3[0]
                 enemy1[19].x = 100000000
                 enemy1[19].y = 100000000
+                enemy2[19].x = 100000000
+                enemy2[19].y = 100000000
+                enemy3[19].x = 100000000
+                enemy3[19].y = 100000000
                 bullet.cld1 = 20
                 bullet2.cld1 = 20
                 bullet3.cld1 = 20
@@ -3342,11 +3649,11 @@ class Bullet5:
                 bullet5.cld1 = 20
                 bullet6.cld1 = 20
                 bulletNum1 = 20
-                grass.gold += 10
+                grass.gold += 30
 
     def draw(self):
         draw_rectangle(*self.get_bb())
-        self.image.clip_draw(160, 180, 14, 14, self.x, self.y)
+        self.image.clip_draw(236, 180, 14, 14, self.x, self.y)
 
 
 class Bullet6:
@@ -3368,10 +3675,20 @@ class Bullet6:
     def get_bb(self):
         return self.x - 7, self.y - 7, self.x + 7, self.y + 7
 
-    def setEnemyList(self, enemy1):
+    def setEnemy1List(self, enemy1):
         for i in range(0, 20):
             self.enemy_x[i] = enemy1[i].x
             self.enemy_y[i] = enemy1[i].y
+
+    def setEnemy2List(self, enemy2):
+        for i in range(0, 20):
+            self.enemy_x[i] = enemy2[i].x
+            self.enemy_y[i] = enemy2[i].y
+
+    def setEnemy3List(self, enemy3):
+        for i in range(0, 20):
+            self.enemy_x[i] = enemy3[i].x
+            self.enemy_y[i] = enemy3[i].y
 
     def collide(self):
         left_a, bottom_a, right_a, top_a = self.get_bb()
@@ -3480,13 +3797,24 @@ class Bullet6:
         return True
 
     def update(self):
-        global bulletNum1
+        global bulletNum1, stage
         self.frame = (self.frame + 1) % 1
-        self.setEnemyList(enemy1)
+        if stage == 1:
+            self.setEnemy1List(enemy1)
+        if stage == 2:
+            self.setEnemy1List(enemy1)
+        if stage == 3:
+            self.setEnemy2List(enemy2)
+        if stage == 4:
+            self.setEnemy2List(enemy2)
+        if stage == 5:
+            self.setEnemy3List(enemy3)
+        if stage == 6:
+            self.setEnemy3List(enemy3)
 
         if self.flag1:
-            self.x = mouseXsave1[1]
-            self.y = mouseYsave1[1]
+            self.x = mouseXsave3[1]
+            self.y = mouseYsave3[1]
             self.flag1 = 0
 
         self.speed = 96
@@ -3539,10 +3867,14 @@ class Bullet6:
 
         if self.collide():
             if self.cld1 == 0:
-                self.x = mouseXsave1[1]
-                self.y = mouseYsave1[1]
+                self.x = mouseXsave3[1]
+                self.y = mouseYsave3[1]
                 enemy1[0].x = 100000000
                 enemy1[0].y = 100000000
+                enemy2[0].x = 100000000
+                enemy2[0].y = 100000000
+                enemy3[0].x = 100000000
+                enemy3[0].y = 100000000
                 bullet.cld1 = 1
                 bullet2.cld1 = 1
                 bullet3.cld1 = 1
@@ -3550,12 +3882,16 @@ class Bullet6:
                 bullet5.cld1 = 1
                 bullet6.cld1 = 1
                 bulletNum1 = 1
-                grass.gold += 10
+                grass.gold += 30
             elif self.cld1 == 1:
-                self.x = mouseXsave1[1]
-                self.y = mouseYsave1[1]
+                self.x = mouseXsave3[1]
+                self.y = mouseYsave3[1]
                 enemy1[1].x = 100000000
                 enemy1[1].y = 100000000
+                enemy2[1].x = 100000000
+                enemy2[1].y = 100000000
+                enemy3[1].x = 100000000
+                enemy3[1].y = 100000000
                 bullet.cld1 = 2
                 bullet2.cld1 = 2
                 bullet3.cld1 = 2
@@ -3563,12 +3899,16 @@ class Bullet6:
                 bullet5.cld1 = 2
                 bullet6.cld1 = 2
                 bulletNum1 = 2
-                grass.gold += 10
+                grass.gold += 30
             elif self.cld1 == 2:
-                self.x = mouseXsave1[1]
-                self.y = mouseYsave1[1]
+                self.x = mouseXsave3[1]
+                self.y = mouseYsave3[1]
                 enemy1[2].x = 100000000
                 enemy1[2].y = 100000000
+                enemy2[2].x = 100000000
+                enemy2[2].y = 100000000
+                enemy3[2].x = 100000000
+                enemy3[2].y = 100000000
                 bullet.cld1 = 3
                 bullet2.cld1 = 3
                 bullet3.cld1 = 3
@@ -3576,12 +3916,16 @@ class Bullet6:
                 bullet5.cld1 = 3
                 bullet6.cld1 = 3
                 bulletNum1 = 3
-                grass.gold += 10
+                grass.gold += 30
             elif self.cld1 == 3:
-                self.x = mouseXsave1[1]
-                self.y = mouseYsave1[1]
+                self.x = mouseXsave3[1]
+                self.y = mouseYsave3[1]
                 enemy1[3].x = 100000000
                 enemy1[3].y = 100000000
+                enemy2[3].x = 100000000
+                enemy2[3].y = 100000000
+                enemy3[3].x = 100000000
+                enemy3[3].y = 100000000
                 bullet.cld1 = 4
                 bullet2.cld1 = 4
                 bullet3.cld1 = 4
@@ -3589,12 +3933,16 @@ class Bullet6:
                 bullet5.cld1 = 4
                 bullet6.cld1 = 4
                 bulletNum1 = 4
-                grass.gold += 10
+                grass.gold += 30
             elif self.cld1 == 4:
-                self.x = mouseXsave1[1]
-                self.y = mouseYsave1[1]
+                self.x = mouseXsave3[1]
+                self.y = mouseYsave3[1]
                 enemy1[4].x = 100000000
                 enemy1[4].y = 100000000
+                enemy2[4].x = 100000000
+                enemy2[4].y = 100000000
+                enemy3[4].x = 100000000
+                enemy3[4].y = 100000000
                 bullet.cld1 = 5
                 bullet2.cld1 = 5
                 bullet3.cld1 = 5
@@ -3602,12 +3950,16 @@ class Bullet6:
                 bullet5.cld1 = 5
                 bullet6.cld1 = 5
                 bulletNum1 = 5
-                grass.gold += 10
+                grass.gold += 30
             elif self.cld1 == 5:
-                self.x = mouseXsave1[1]
-                self.y = mouseYsave1[1]
+                self.x = mouseXsave3[1]
+                self.y = mouseYsave3[1]
                 enemy1[5].x = 100000000
                 enemy1[5].y = 100000000
+                enemy2[5].x = 100000000
+                enemy2[5].y = 100000000
+                enemy3[5].x = 100000000
+                enemy3[5].y = 100000000
                 bullet.cld1 = 6
                 bullet2.cld1 = 6
                 bullet3.cld1 = 6
@@ -3615,12 +3967,16 @@ class Bullet6:
                 bullet5.cld1 = 6
                 bullet6.cld1 = 6
                 bulletNum1 = 6
-                grass.gold += 10
+                grass.gold += 30
             elif self.cld1 == 6:
-                self.x = mouseXsave1[1]
-                self.y = mouseYsave1[1]
+                self.x = mouseXsave3[1]
+                self.y = mouseYsave3[1]
                 enemy1[6].x = 100000000
                 enemy1[6].y = 100000000
+                enemy2[6].x = 100000000
+                enemy2[6].y = 100000000
+                enemy3[6].x = 100000000
+                enemy3[6].y = 100000000
                 bullet.cld1 = 7
                 bullet2.cld1 = 7
                 bullet3.cld1 = 7
@@ -3628,12 +3984,16 @@ class Bullet6:
                 bullet5.cld1 = 7
                 bullet6.cld1 = 7
                 bulletNum1 = 7
-                grass.gold += 10
+                grass.gold += 30
             elif self.cld1 == 7:
-                self.x = mouseXsave1[1]
-                self.y = mouseYsave1[1]
+                self.x = mouseXsave3[1]
+                self.y = mouseYsave3[1]
                 enemy1[7].x = 100000000
                 enemy1[7].y = 100000000
+                enemy2[7].x = 100000000
+                enemy2[7].y = 100000000
+                enemy3[7].x = 100000000
+                enemy3[7].y = 100000000
                 bullet.cld1 = 8
                 bullet2.cld1 = 8
                 bullet3.cld1 = 8
@@ -3641,12 +4001,16 @@ class Bullet6:
                 bullet5.cld1 = 8
                 bullet6.cld1 = 1
                 bulletNum1 = 8
-                grass.gold += 10
+                grass.gold += 30
             elif self.cld1 == 8:
-                self.x = mouseXsave1[1]
-                self.y = mouseYsave1[1]
+                self.x = mouseXsave3[1]
+                self.y = mouseYsave3[1]
                 enemy1[8].x = 100000000
                 enemy1[8].y = 100000000
+                enemy2[8].x = 100000000
+                enemy2[8].y = 100000000
+                enemy3[8].x = 100000000
+                enemy3[8].y = 100000000
                 bullet.cld1 = 9
                 bullet2.cld1 = 9
                 bullet3.cld1 = 9
@@ -3654,12 +4018,16 @@ class Bullet6:
                 bullet5.cld1 = 9
                 bullet6.cld1 = 9
                 bulletNum1 = 9
-                grass.gold += 10
+                grass.gold += 30
             elif self.cld1 == 9:
-                self.x = mouseXsave1[1]
-                self.y = mouseYsave1[1]
+                self.x = mouseXsave3[1]
+                self.y = mouseYsave3[1]
                 enemy1[9].x = 100000000
                 enemy1[9].y = 100000000
+                enemy2[9].x = 100000000
+                enemy2[9].y = 100000000
+                enemy3[9].x = 100000000
+                enemy3[9].y = 100000000
                 bullet.cld1 = 10
                 bullet2.cld1 = 10
                 bullet3.cld1 = 10
@@ -3667,12 +4035,16 @@ class Bullet6:
                 bullet5.cld1 = 10
                 bullet6.cld1 = 10
                 bulletNum1 = 10
-                grass.gold += 10
+                grass.gold += 30
             elif self.cld1 == 10:
-                self.x = mouseXsave1[1]
-                self.y = mouseYsave1[1]
+                self.x = mouseXsave3[1]
+                self.y = mouseYsave3[1]
                 enemy1[10].x = 100000000
                 enemy1[10].y = 100000000
+                enemy2[10].x = 100000000
+                enemy2[10].y = 100000000
+                enemy3[10].x = 100000000
+                enemy3[10].y = 100000000
                 bullet.cld1 = 11
                 bullet2.cld1 = 11
                 bullet3.cld1 = 11
@@ -3680,12 +4052,16 @@ class Bullet6:
                 bullet5.cld1 = 11
                 bullet6.cld1 = 11
                 bulletNum1 = 11
-                grass.gold += 10
+                grass.gold += 30
             elif self.cld1 == 11:
-                self.x = mouseXsave1[1]
-                self.y = mouseYsave1[1]
+                self.x = mouseXsave3[1]
+                self.y = mouseYsave3[1]
                 enemy1[11].x = 100000000
                 enemy1[11].y = 100000000
+                enemy2[11].x = 100000000
+                enemy2[11].y = 100000000
+                enemy3[11].x = 100000000
+                enemy3[11].y = 100000000
                 bullet.cld1 = 12
                 bullet2.cld1 = 12
                 bullet3.cld1 = 12
@@ -3693,12 +4069,16 @@ class Bullet6:
                 bullet5.cld1 = 12
                 bullet6.cld1 = 12
                 bulletNum1 = 2
-                grass.gold += 10
+                grass.gold += 30
             elif self.cld1 == 12:
-                self.x = mouseXsave1[1]
-                self.y = mouseYsave1[1]
+                self.x = mouseXsave3[1]
+                self.y = mouseYsave3[1]
                 enemy1[12].x = 100000000
                 enemy1[12].y = 100000000
+                enemy2[12].x = 100000000
+                enemy2[12].y = 100000000
+                enemy3[12].x = 100000000
+                enemy3[12].y = 100000000
                 bullet.cld1 = 13
                 bullet2.cld1 = 13
                 bullet3.cld1 = 13
@@ -3706,12 +4086,16 @@ class Bullet6:
                 bullet5.cld1 = 13
                 bullet6.cld1 = 13
                 bulletNum1 = 3
-                grass.gold += 10
+                grass.gold += 30
             elif self.cld1 == 13:
-                self.x = mouseXsave1[1]
-                self.y = mouseYsave1[1]
+                self.x = mouseXsave3[1]
+                self.y = mouseYsave3[1]
                 enemy1[13].x = 100000000
                 enemy1[13].y = 100000000
+                enemy2[13].x = 100000000
+                enemy2[13].y = 100000000
+                enemy3[13].x = 100000000
+                enemy3[13].y = 100000000
                 bullet.cld1 = 14
                 bullet2.cld1 = 14
                 bullet3.cld1 = 14
@@ -3719,12 +4103,16 @@ class Bullet6:
                 bullet5.cld1 = 14
                 bullet6.cld1 = 14
                 bulletNum1 = 4
-                grass.gold += 10
+                grass.gold += 30
             elif self.cld1 == 14:
-                self.x = mouseXsave1[1]
-                self.y = mouseYsave1[1]
+                self.x = mouseXsave3[1]
+                self.y = mouseYsave3[1]
                 enemy1[14].x = 100000000
                 enemy1[14].y = 100000000
+                enemy2[14].x = 100000000
+                enemy2[14].y = 100000000
+                enemy3[14].x = 100000000
+                enemy3[14].y = 100000000
                 bullet.cld1 = 15
                 bullet2.cld1 = 15
                 bullet3.cld1 = 15
@@ -3732,12 +4120,16 @@ class Bullet6:
                 bullet5.cld1 = 15
                 bullet6.cld1 = 15
                 bulletNum1 = 5
-                grass.gold += 10
+                grass.gold += 30
             elif self.cld1 == 15:
-                self.x = mouseXsave1[1]
-                self.y = mouseYsave1[1]
+                self.x = mouseXsave3[1]
+                self.y = mouseYsave3[1]
                 enemy1[15].x = 100000000
                 enemy1[15].y = 100000000
+                enemy2[15].x = 100000000
+                enemy2[15].y = 100000000
+                enemy3[15].x = 100000000
+                enemy3[15].y = 100000000
                 bullet.cld1 = 16
                 bullet2.cld1 = 16
                 bullet3.cld1 = 16
@@ -3745,12 +4137,16 @@ class Bullet6:
                 bullet5.cld1 = 16
                 bullet6.cld1 = 16
                 bulletNum1 = 6
-                grass.gold += 10
+                grass.gold += 30
             elif self.cld1 == 16:
-                self.x = mouseXsave1[1]
-                self.y = mouseYsave1[1]
+                self.x = mouseXsave3[1]
+                self.y = mouseYsave3[1]
                 enemy1[16].x = 100000000
                 enemy1[16].y = 100000000
+                enemy2[16].x = 100000000
+                enemy2[16].y = 100000000
+                enemy3[16].x = 100000000
+                enemy3[16].y = 100000000
                 bullet.cld1 = 17
                 bullet2.cld1 = 17
                 bullet3.cld1 = 17
@@ -3758,12 +4154,16 @@ class Bullet6:
                 bullet5.cld1 = 17
                 bullet6.cld1 = 17
                 bulletNum1 = 7
-                grass.gold += 10
+                grass.gold += 30
             elif self.cld1 == 17:
-                self.x = mouseXsave1[1]
-                self.y = mouseYsave1[1]
+                self.x = mouseXsave3[1]
+                self.y = mouseYsave3[1]
                 enemy1[17].x = 100000000
                 enemy1[17].y = 100000000
+                enemy2[17].x = 100000000
+                enemy2[17].y = 100000000
+                enemy3[17].x = 100000000
+                enemy3[17].y = 100000000
                 bullet.cld1 = 18
                 bullet2.cld1 = 18
                 bullet3.cld1 = 18
@@ -3771,12 +4171,16 @@ class Bullet6:
                 bullet5.cld1 = 18
                 bullet6.cld1 = 18
                 bulletNum1 = 8
-                grass.gold += 10
+                grass.gold += 30
             elif self.cld1 == 18:
-                self.x = mouseXsave1[1]
-                self.y = mouseYsave1[1]
+                self.x = mouseXsave3[1]
+                self.y = mouseYsave3[1]
                 enemy1[18].x = 100000000
                 enemy1[18].y = 100000000
+                enemy2[18].x = 100000000
+                enemy2[18].y = 100000000
+                enemy3[18].x = 100000000
+                enemy3[18].y = 100000000
                 bullet.cld1 = 19
                 bullet2.cld1 = 19
                 bullet3.cld1 = 19
@@ -3784,12 +4188,16 @@ class Bullet6:
                 bullet5.cld1 = 19
                 bullet6.cld1 = 19
                 bulletNum1 = 9
-                grass.gold += 10
+                grass.gold += 30
             elif self.cld1 == 19:
-                self.x = mouseXsave1[1]
-                self.y = mouseYsave1[1]
+                self.x = mouseXsave3[1]
+                self.y = mouseYsave3[1]
                 enemy1[19].x = 100000000
                 enemy1[19].y = 100000000
+                enemy2[19].x = 100000000
+                enemy2[19].y = 100000000
+                enemy3[19].x = 100000000
+                enemy3[19].y = 100000000
                 bullet.cld1 = 20
                 bullet2.cld1 = 20
                 bullet3.cld1 = 20
@@ -3797,11 +4205,11 @@ class Bullet6:
                 bullet5.cld1 = 20
                 bullet6.cld1 = 20
                 bulletNum1 = 20
-                grass.gold += 10
+                grass.gold += 30
 
     def draw(self):
         draw_rectangle(*self.get_bb())
-        self.image.clip_draw(160, 180, 14, 14, self.x, self.y)
+        self.image.clip_draw(236, 180, 14, 14, self.x, self.y)
 
 
 def exit():
@@ -3880,9 +4288,13 @@ def handle_events():
                                 enemy1[i].flag[0] = True
                                 enemy2[i].flag[0] = True
                                 enemy3[i].flag[0] = True
-                                bullet.cld1 = 0
-                                bullet2.cld1 = 0
-                                bulletNum1 = 0
+                            bullet.cld1 = 0
+                            bullet2.cld1 = 0
+                            bullet3.cld1 = 0
+                            bullet4.cld1 = 0
+                            bullet5.cld1 = 0
+                            bullet6.cld1 = 0
+                            bulletNum1 = 0
 
         elif event.type == SDL_MOUSEBUTTONUP:
             if mouseFlag1[mouseNum1]:
@@ -3892,12 +4304,14 @@ def handle_events():
                 grass.gold -= 100
             elif mouseFlag2[mouseNum2]:
                 mouseXsave2[mouseNum2], mouseYsave2[mouseNum2] = event.x, 640 - 1 - event.y
-                print(mouseXsave2, mouseYsave2)
+                print(mouseXsave2[mouseNum2], mouseYsave2[mouseNum2])
                 mouseNum2 += 1
+                grass.gold -= 200
             elif mouseFlag3[mouseNum3]:
                 mouseXsave3[mouseNum3], mouseYsave3[mouseNum3] = event.x, 640 - 1 - event.y
-                print(mouseXsave3, mouseYsave3)
+                print(mouseXsave3[mouseNum3], mouseYsave3[mouseNum3])
                 mouseNum3 += 1
+                grass.gold -= 300
             else:
                 pass
 
@@ -3918,11 +4332,11 @@ time = 0
 
 
 def update():
-    global time, first_time, bulletNum1, start_time, bulletNum1, stage
+    global time, first_time, start_time, bulletNum1, stage
 
     if start_time > 0:
         time = get_time() - first_time - start_time
-    print(time)
+    #print(time)
 
     if stage == 1:
         for i in range(10):
@@ -3960,42 +4374,42 @@ def update():
             bullet.update()
         if enemy1[i].collide2():
             bullet2.update()
-        if enemy2[i].collide():
-            bullet.update()
-        if enemy2[i].collide2():
-            bullet2.update()
-        if enemy3[i].collide():
-            bullet.update()
-        if enemy3[i].collide2():
-            bullet2.update()
-        #if enemy1[i].collide3():
-        #    bullet.update()
         if enemy1[i].collide_1():
             bullet.update()
         if enemy1[i].collide2_1():
             bullet2.update()
-        if enemy2[i].collide_1():
-            bullet.update()
-        if enemy2[i].collide2_1():
-            bullet2.update()
-        if enemy3[i].collide_1():
-            bullet.update()
-        if enemy3[i].collide2_1():
-            bullet2.update()
-        #if enemy1[i].collide3_1():
-        #    bullet.update()
         if enemy1[i].collide_2():
             bullet.update()
         if enemy1[i].collide2_2():
             bullet2.update()
+        #if enemy1[i].collide3():
+        #    bullet.update()
+        if enemy2[i].collide():
+            bullet3.update()
+        if enemy2[i].collide2():
+            bullet4.update()
+        if enemy2[i].collide_1():
+            bullet3.update()
+        if enemy2[i].collide2_1():
+            bullet4.update()
         if enemy2[i].collide_2():
-            bullet.update()
+            bullet3.update()
         if enemy2[i].collide2_2():
-            bullet2.update()
+            bullet4.update()
+        #if enemy1[i].collide3_1():
+        #    bullet.update()
+        if enemy3[i].collide():
+            bullet5.update()
+        if enemy3[i].collide2():
+            bullet6.update()
+        if enemy3[i].collide_1():
+            bullet5.update()
+        if enemy3[i].collide2_1():
+            bullet6.update()
         if enemy3[i].collide_2():
-            bullet.update()
+            bullet5.update()
         if enemy3[i].collide2_2():
-            bullet2.update()
+            bullet6.update()
         #if enemy1[i].collide3_2():
         #    bullet.update()
 
@@ -4047,13 +4461,13 @@ def draw():
         if enemy1[i].collide2():
             bullet2.draw()
         if enemy2[i].collide():
-            bullet.draw()
+            bullet3.draw()
         if enemy2[i].collide2():
-            bullet2.draw()
+            bullet4.draw()
         if enemy3[i].collide():
-            bullet.draw()
+            bullet5.draw()
         if enemy3[i].collide2():
-            bullet2.draw()
+            bullet6.draw()
         #if enemy1[i].collide3():
         #    bullet.draw()
         if enemy1[i].collide_1():
@@ -4061,13 +4475,13 @@ def draw():
         if enemy1[i].collide2_1():
             bullet2.draw()
         if enemy2[i].collide_1():
-            bullet.draw()
+            bullet3.draw()
         if enemy2[i].collide2_1():
-            bullet2.draw()
+            bullet4.draw()
         if enemy3[i].collide_1():
-            bullet.draw()
+            bullet5.draw()
         if enemy3[i].collide2_1():
-            bullet2.draw()
+            bullet6.draw()
         #if enemy1[i].collide3_1():
         #    bullet.draw()
         if enemy1[i].collide_2():
@@ -4075,13 +4489,13 @@ def draw():
         if enemy1[i].collide2_2():
             bullet2.draw()
         if enemy2[i].collide_2():
-            bullet.draw()
+            bullet3.draw()
         if enemy2[i].collide2_2():
-            bullet2.draw()
+            bullet4.draw()
         if enemy3[i].collide_2():
-            bullet.draw()
+            bullet5.draw()
         if enemy3[i].collide2_2():
-            bullet2.draw()
+            bullet6.draw()
         #if enemy1[i].collide3_2():
         #    bullet.draw()
 

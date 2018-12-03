@@ -4,12 +4,16 @@ import title_state
 
 name = "StartState"
 image = None
+bgm = None
 logo_time = 0.0
 
 
 def enter():
-    global image
+    global image, bgm
     image = load_image('kpu_credit.png')
+    bgm = load_music('happyend.mid')
+    bgm.set_volume(64)
+    bgm.repeat_play()
 
 
 def exit():
