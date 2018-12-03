@@ -10,7 +10,7 @@ import high_grade_pause_state
 
 name = "MainState"
 
-RUN_SPEED = 50
+RUN_SPEED = 150
 
 enemy1 = [None for i in range(0, 20)]
 enemy2 = [None for i in range(0, 20)]
@@ -25,6 +25,7 @@ tower2 = None
 tower3 = None
 font = None
 first_time = 0
+start_time = 0
 
 mouseFlag1 = [False for i in range(0, 30)]
 mouseNum1 = 0
@@ -65,10 +66,14 @@ class Grass:
     def __init__(self):
         self.image = load_image('Track2B.png')
         self.font = load_font('ENCR10B.TTF', 16)
+        self.hp = 100
+        self.gold = 100
 
     def draw(self):
         self.image.draw(480, 320)
-        self.font.draw(50, 550, '(Time: %3.2f)' % get_time(), (255, 255, 0))
+        #self.font.draw(440, 615, '(Time: %3.2f)' % get_time(), (255, 255, 0))
+        self.font.draw(700, 615, '%3.2f' % self.hp, (255, 0, 0))
+        self.font.draw(700, 560, '%3.2f' % self.gold, (255, 255, 0))
 
 
 class Enemy1:
@@ -573,8 +578,8 @@ class Bullet:
         self.frame = 0
         self.x = 0
         self.y = 0
-        self.enemy_x = [0 for i in range(5)]
-        self.enemy_y = [0 for i in range(5)]
+        self.enemy_x = [0 for i in range(20)]
+        self.enemy_y = [0 for i in range(20)]
         self.flag1 = 1
         self.dir = 0
         self.speed = 0
@@ -585,7 +590,7 @@ class Bullet:
         return self.x - 7, self.y - 7, self.x + 7, self.y + 7
 
     def setEnemyList(self, enemy1):
-        for i in range(0, 5):
+        for i in range(0, 20):
             self.enemy_x[i] = enemy1[i].x
             self.enemy_y[i] = enemy1[i].y
 
@@ -696,7 +701,7 @@ class Bullet:
             self.y = mouseYsave1[bulletNum1]
             self.flag1 = 0
 
-        self.speed = 48
+        self.speed = 96
 
         if self.cld1 == 0:
             self.dir = math.atan2(self.enemy_y[0] - self.y, self.enemy_x[0] - self.x)
@@ -731,60 +736,70 @@ class Bullet:
                 enemy1[0].x = -1000
                 enemy1[0].y = -1000
                 self.cld1 = 1
+                grass.gold += 10
             elif self.cld1 == 1:
                 self.x = mouseXsave1[0]
                 self.y = mouseYsave1[0]
                 enemy1[1].x = -1000
                 enemy1[1].y = -1000
                 self.cld1 = 2
+                grass.gold += 10
             elif self.cld1 == 2:
                 self.x = mouseXsave1[0]
                 self.y = mouseYsave1[0]
                 enemy1[2].x = -1000
                 enemy1[2].y = -1000
                 self.cld1 = 3
+                grass.gold += 10
             elif self.cld1 == 3:
                 self.x = mouseXsave1[0]
                 self.y = mouseYsave1[0]
                 enemy1[3].x = -1000
                 enemy1[3].y = -1000
                 self.cld1 = 4
+                grass.gold += 10
             elif self.cld1 == 4:
                 self.x = mouseXsave1[0]
                 self.y = mouseYsave1[0]
                 enemy1[4].x = -1000
                 enemy1[4].y = -1000
                 self.cld1 = 5
+                grass.gold += 10
             elif self.cld1 == 5:
                 self.x = mouseXsave1[0]
                 self.y = mouseYsave1[0]
                 enemy1[5].x = -1000
                 enemy1[5].y = -1000
                 self.cld1 = 6
+                grass.gold += 10
             elif self.cld1 == 6:
                 self.x = mouseXsave1[0]
                 self.y = mouseYsave1[0]
                 enemy1[6].x = -1000
                 enemy1[6].y = -1000
                 self.cld1 = 7
+                grass.gold += 10
             elif self.cld1 == 7:
                 self.x = mouseXsave1[0]
                 self.y = mouseYsave1[0]
                 enemy1[7].x = -1000
                 enemy1[7].y = -1000
                 self.cld1 = 8
+                grass.gold += 10
             elif self.cld1 == 8:
                 self.x = mouseXsave1[0]
                 self.y = mouseYsave1[0]
                 enemy1[8].x = -1000
                 enemy1[8].y = -1000
                 self.cld1 = 9
+                grass.gold += 10
             elif self.cld1 == 9:
                 self.x = mouseXsave1[0]
                 self.y = mouseYsave1[0]
                 enemy1[9].x = -1000
                 enemy1[9].y = -1000
                 self.cld1 = 10
+                grass.gold += 10
 
     def draw(self):
         draw_rectangle(*self.get_bb())
@@ -817,7 +832,9 @@ def handle_events():
     global mouseX, mouseY, mouseXsave1, mouseYsave1, mouseFlag1, mouseNum1
     global mouseXsave2, mouseYsave2, mouseFlag2, mouseNum2
     global mouseXsave3, mouseYsave3, mouseFlag3, mouseNum3
+    global start_time
     events = get_events()
+
     for event in events:
         if event.type == SDL_QUIT:
             game_framework.quit()
@@ -843,6 +860,11 @@ def handle_events():
                     if 175 <= event.y:
                         if event.y <= 245:
                             mouseFlag3[mouseNum3] = True
+            if 640 <= event.x:
+                if event.x <= 890:
+                    if 340 <= event.y:
+                        if event.y <= 395:
+                            start_time = get_time()
 
         elif event.type == SDL_MOUSEBUTTONUP:
             if mouseFlag1[mouseNum1]:
@@ -877,15 +899,17 @@ time = 0
 
 
 def update():
-    global time, first_time, bulletNum1
-    enemy1[0].update()
-    time = get_time() - first_time
-    print(time)
+    global time, first_time, bulletNum1, start_time
+    if start_time > 0:
+        time = get_time() - first_time - start_time
+    #print(time)
 
-    for i in range(5):
+    for i in range(10):
         if enemy1[i].collide():
             bullet.update()
 
+    if time > 0:
+        enemy1[0].update()
     if time >= 1:
         enemy1[1].update()
     if time >= 2:
@@ -895,15 +919,16 @@ def update():
     if time >= 4:
         enemy1[4].update()
     if time >= 5:
-        enemy2[0].update()
+        enemy1[5].update()
     if time >= 6:
-        enemy2[1].update()
+        enemy1[6].update()
     if time >= 7:
-        enemy2[2].update()
+        enemy1[7].update()
     if time >= 8:
-        enemy2[3].update()
+        enemy1[8].update()
     if time >= 9:
-        enemy2[4].update()
+        enemy1[9].update()
+
     if time >= 10:
         enemy3[0].update()
     if time >= 11:
@@ -926,7 +951,8 @@ def draw():
     clear_canvas()
     grass.draw()
 
-    enemy1[0].draw()
+    if time > 0:
+        enemy1[0].draw()
     if time >= 1:
         enemy1[1].draw()
     if time >= 2:
@@ -936,15 +962,16 @@ def draw():
     if time >= 4:
         enemy1[4].draw()
     if time >= 5:
-        enemy2[0].draw()
+        enemy1[5].draw()
     if time >= 6:
-        enemy2[1].draw()
+        enemy1[6].draw()
     if time >= 7:
-        enemy2[2].draw()
+        enemy1[7].draw()
     if time >= 8:
-        enemy2[3].draw()
+        enemy1[8].draw()
     if time >= 9:
-        enemy2[4].draw()
+        enemy1[9].draw()
+
     if time >= 10:
         enemy3[0].draw()
     if time >= 11:
@@ -961,7 +988,7 @@ def draw():
     tower2.draw()
     tower3.draw()
 
-    for i in range(5):
+    for i in range(10):
         if enemy1[i].collide():
             bullet.draw()
 
