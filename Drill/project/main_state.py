@@ -27,6 +27,8 @@ tower3 = None
 font = None
 first_time = 0
 start_time = 0
+stage = 0
+
 
 mouseFlag1 = [False for i in range(0, 30)]
 mouseNum1 = 0
@@ -585,7 +587,6 @@ class Tower3:
 
 
 class Bullet:
-
     def __init__(self):
         self.image = load_image('bullet.png')
         self.frame = 0
@@ -1042,7 +1043,7 @@ def handle_events():
     global mouseX, mouseY, mouseXsave1, mouseYsave1, mouseFlag1, mouseNum1
     global mouseXsave2, mouseYsave2, mouseFlag2, mouseNum2
     global mouseXsave3, mouseYsave3, mouseFlag3, mouseNum3
-    global start_time
+    global start_time, stage
     events = get_events()
 
     for event in events:
@@ -1059,22 +1060,39 @@ def handle_events():
                 if event.x <= 705:
                     if 175 <= event.y:
                         if event.y <= 245:
-                            mouseFlag1[mouseNum1] = True
+                            if grass.gold > 0:
+                                mouseFlag1[mouseNum1] = True
             if 718 <= event.x:
                 if event.x <= 770:
                     if 175 <= event.y:
                         if event.y <= 245:
-                            mouseFlag2[mouseNum2] = True
+                            if grass.gold > 0:
+                                mouseFlag2[mouseNum2] = True
             if 782 <= event.x:
                 if event.x <= 830:
                     if 175 <= event.y:
                         if event.y <= 245:
-                            mouseFlag3[mouseNum3] = True
+                            if grass.gold > 0:
+                                mouseFlag3[mouseNum3] = True
             if 640 <= event.x:
                 if event.x <= 890:
                     if 340 <= event.y:
                         if event.y <= 395:
                             start_time = get_time()
+                            stage += 1
+                            for i in range(20):
+                                enemy1[i].x, enemy1[i].y = 100, 640
+                                enemy2[i].x, enemy2[i].y = 100, 640
+                                enemy3[i].x, enemy3[i].y = 100, 640
+
+                                for j in range(14):
+                                    enemy1[i].flag[j] = False
+                                    enemy2[i].flag[j] = False
+                                    enemy3[i].flag[j] = False
+
+                                enemy1[i].flag[0] = True
+                                enemy2[i].flag[0] = True
+                                enemy3[i].flag[0] = True
 
         elif event.type == SDL_MOUSEBUTTONUP:
             if mouseFlag1[mouseNum1]:
@@ -1110,10 +1128,11 @@ time = 0
 
 
 def update():
-    global time, first_time, bulletNum1, start_time, bulletNum1
+    global time, first_time, bulletNum1, start_time, bulletNum1, stage
+
     if start_time > 0:
         time = get_time() - first_time - start_time
-    #print(time)
+    print(time)
 
     for i in range(10):
         i += bulletNum1
@@ -1122,26 +1141,50 @@ def update():
         if enemy1[i].collide2():
             bullet2.update()
 
-    if time > 0:
-        enemy1[0].update()
-    if time >= 1:
-        enemy1[1].update()
-    if time >= 2:
-        enemy1[2].update()
-    if time >= 3:
-        enemy1[3].update()
-    if time >= 4:
-        enemy1[4].update()
-    if time >= 5:
-        enemy1[5].update()
-    if time >= 6:
-        enemy1[6].update()
-    if time >= 7:
-        enemy1[7].update()
-    if time >= 8:
-        enemy1[8].update()
-    if time >= 9:
-        enemy1[9].update()
+    if stage == 1:
+        if time > 0:
+            enemy1[0].update()
+        if time >= 1:
+            enemy1[1].update()
+        if time >= 2:
+            enemy1[2].update()
+        if time >= 3:
+            enemy1[3].update()
+        if time >= 4:
+            enemy1[4].update()
+        if time >= 5:
+            enemy1[5].update()
+        if time >= 6:
+            enemy1[6].update()
+        if time >= 7:
+            enemy1[7].update()
+        if time >= 8:
+            enemy1[8].update()
+        if time >= 9:
+            enemy1[9].update()
+
+    if stage == 2:
+        if time > 0:
+            enemy1[0].update()
+        if time >= 1:
+            enemy1[1].update()
+        if time >= 2:
+            enemy1[2].update()
+        if time >= 3:
+            enemy1[3].update()
+        if time >= 4:
+            enemy1[4].update()
+        if time >= 5:
+            enemy1[5].update()
+        if time >= 6:
+            enemy1[6].update()
+        if time >= 7:
+            enemy1[7].update()
+        if time >= 8:
+            enemy1[8].update()
+        if time >= 9:
+            enemy1[9].update()
+
 
     if time >= 10:
         enemy3[0].update()
@@ -1165,26 +1208,49 @@ def draw():
     clear_canvas()
     grass.draw()
 
-    if time > 0:
-        enemy1[0].draw()
-    if time >= 1:
-        enemy1[1].draw()
-    if time >= 2:
-        enemy1[2].draw()
-    if time >= 3:
-        enemy1[3].draw()
-    if time >= 4:
-        enemy1[4].draw()
-    if time >= 5:
-        enemy1[5].draw()
-    if time >= 6:
-        enemy1[6].draw()
-    if time >= 7:
-        enemy1[7].draw()
-    if time >= 8:
-        enemy1[8].draw()
-    if time >= 9:
-        enemy1[9].draw()
+    if stage == 1:
+        if time > 0:
+            enemy1[0].draw()
+        if time >= 1:
+            enemy1[1].draw()
+        if time >= 2:
+            enemy1[2].draw()
+        if time >= 3:
+            enemy1[3].draw()
+        if time >= 4:
+            enemy1[4].draw()
+        if time >= 5:
+            enemy1[5].draw()
+        if time >= 6:
+            enemy1[6].draw()
+        if time >= 7:
+            enemy1[7].draw()
+        if time >= 8:
+            enemy1[8].draw()
+        if time >= 9:
+            enemy1[9].draw()
+
+    if stage == 2:
+        if time > 0:
+            enemy1[0].draw()
+        if time >= 1:
+            enemy1[1].draw()
+        if time >= 2:
+            enemy1[2].draw()
+        if time >= 3:
+            enemy1[3].draw()
+        if time >= 4:
+            enemy1[4].draw()
+        if time >= 5:
+            enemy1[5].draw()
+        if time >= 6:
+            enemy1[6].draw()
+        if time >= 7:
+            enemy1[7].draw()
+        if time >= 8:
+            enemy1[8].draw()
+        if time >= 9:
+            enemy1[9].draw()
 
     if time >= 10:
         enemy3[0].draw()
