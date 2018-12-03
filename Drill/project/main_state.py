@@ -871,6 +871,7 @@ def handle_events():
                 mouseXsave1[mouseNum1], mouseYsave1[mouseNum1] = event.x, 640 - 1 - event.y
                 print(mouseXsave1[mouseNum1], mouseYsave1[mouseNum1])
                 mouseNum1 += 1
+                grass.gold -= 100
             elif mouseFlag2[mouseNum2]:
                 mouseXsave2[mouseNum2], mouseYsave2[mouseNum2] = event.x, 640 - 1 - event.y
                 print(mouseXsave2, mouseYsave2)
